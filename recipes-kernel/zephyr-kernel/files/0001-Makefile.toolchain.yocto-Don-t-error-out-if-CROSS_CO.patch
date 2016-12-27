@@ -1,0 +1,32 @@
+From 6f6f75cae61750e104d9601d4060e4cd782bd217 Mon Sep 17 00:00:00 2001
+From: Randy Witt <randy.e.witt@linux.intel.com>
+Date: Thu, 10 Sep 2015 11:08:14 -0700
+Subject: [PATCH 1/3] Makefile.toolchain.yocto: Don't error out if
+ CROSS_COMPILE is set
+
+If CROSS_COMPILE is set, that means the user is trying to specify the
+compiler manually. So don't error out when YOCTO_SDK_INSTALL_DIR isn't
+set but CROSS_COMPILE is set.
+
+Signed-off-by: Randy Witt <randy.e.witt@linux.intel.com>
+---
+ scripts/Makefile.toolchain.yocto | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/scripts/Makefile.toolchain.yocto b/scripts/Makefile.toolchain.yocto
+index cf6918e..77b1a12 100644
+--- a/scripts/Makefile.toolchain.yocto
++++ b/scripts/Makefile.toolchain.yocto
+@@ -1,6 +1,8 @@
+ 
++ifndef CROSS_COMPILE
+ ifndef YOCTO_SDK_INSTALL_DIR
+-$(error YOCTO_SDK_INSTALL_DIR is not set)
++    $(error YOCTO_SDK_INSTALL_DIR is not set)
++endif
+ endif
+ 
+ # arm
+-- 
+2.4.3
+
