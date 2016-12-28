@@ -11,7 +11,7 @@ python zephyrtest_virtclass_handler () {
     pn_underscores = e.data.getVar("PN", True) + "-" + variant
 
     e.data.setVar("PN", pn)
-    e.data.setVar("ZEPHYR_IMAGENAME", "test_" + variant_dashes + ".elf")
+    e.data.setVar("ZEPHYR_IMAGENAME", variant_dashes + ".elf")
 
     # Most tests for Zephyr 1.6 are in the "legacy" folder
     e.data.setVar("ZEPHYR_IMAGE_SRCDIR", "tests/legacy/kernel/" + variant)
