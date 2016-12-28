@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Intel Corporation
+# Copyright (C) 2013-2016 Intel Corporation
 #
 # Released under the MIT license (see COPYING.MIT)
 
@@ -17,7 +17,6 @@ class QemuTargetZephyr(QemuTarget):
     def __init__(self, d):
 
         super(QemuTarget, self).__init__(d)
-
         self.qemulog = os.path.join(self.testdir, "qemu_boot_log.%s" % self.datetime)
         dump_target_cmds = d.getVar("testimage_dump_target", True)
         dump_host_cmds = d.getVar("testimage_dump_host", True)
@@ -28,6 +27,7 @@ class QemuTargetZephyr(QemuTarget):
 
         # Log QemuRunner log output to a file
         import oe.path
+        from oeqa.utils.qemuzephyrrunner import QemuZephyrRunner
         bb.utils.mkdirhier(self.testdir)
         self.qemurunnerlog = os.path.join(self.testdir, 'qemurunner_log.%s' % self.datetime)
         logger = logging.getLogger('BitBake.QemuRunner')
@@ -35,7 +35,6 @@ class QemuTargetZephyr(QemuTarget):
         loggerhandler.setFormatter(logging.Formatter("%(levelname)s: %(message)s"))
         logger.addHandler(loggerhandler)
         oe.path.symlink(os.path.basename(self.qemurunnerlog), os.path.join(self.testdir, 'qemurunner_log'), force=True)
-
         self.runner = QemuZephyrRunner(machine=d.getVar("MACHINE", True),
                         rootfs=self.rootfs,
                         tmpdir = d.getVar("TMPDIR", True),

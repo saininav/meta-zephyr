@@ -1,14 +1,18 @@
-LICENSE = "CLOSED"
+LICENSE = "Apache-2.0"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
 
+# tag v1.6.0
+SRCREV="d4e799d77a36eaf6d678b357c207411ec32b2d62"
+SRC_URI = "git://gerrit.zephyrproject.org/r/zephyr.git;protocol=https;branch=v1.6.0-branch"
 SRC_URI += "file://0001-Makefile.toolchain.yocto-Don-t-error-out-if-CROSS_CO.patch"
-SRC_URI += "file://0002-zephyr-env.sh-Work-with-zsh.patch"
-SRC_URI += "file://0003-zephyr-env.sh-Don-t-wait-to-test-for-error-condition.patch"
 
-# Modify these as desired
-PV = "1.0+git${SRCPV}"
+PV = "1.6.0"
 
 S = "${WORKDIR}/git"
 
 # There shouldn't be a manifest for zephyr kernels since there is no root
 # filesystem.
 IMAGE_NO_MANIFEST = "1"
+
+#DEFAULTTUNE_arm = "cortexm3"
+TUNE_FEATURES_arm ="cortexm3"

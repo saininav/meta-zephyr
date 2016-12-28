@@ -1,4 +1,4 @@
-# Copyright (C) 2015 Intel Corporation
+# Copyright (C) 2015-2016 Intel Corporation
 #
 # Released under the MIT license (see COPYING.MIT)
 
@@ -13,35 +13,43 @@ import socket
 import select
 import bb
 import tempfile
-from qemurunner import QemuRunner
+from oeqa.utils.qemurunner import QemuRunner
 
 class QemuZephyrRunner(QemuRunner):
 
     def __init__(self, machine, rootfs, display, tmpdir, deploy_dir_image, logfile, kernel, boottime):
         QemuRunner.__init__(self, machine, rootfs, display, tmpdir,
                             deploy_dir_image, logfile, boottime, None,
-                            None)
+                            None, True)
 
         # Popen object for runqemu
         self.socketfile = tempfile.NamedTemporaryFile()
+        self.runqemu = None
         self.socketname = self.socketfile.name
         self.server_socket = None
         self.kernel = kernel
 
     def create_socket(self):
-        tries = 3
+        bb.note("waiting at most %s seconds for qemu pid" % self.runqemutime)
+        tries = self.runqemutime
         while tries > 0:
+            time.sleep(1)
             try:
                 self.server_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
                 self.server_socket.connect(self.socketname)
                 bb.note("Created listening socket for qemu serial console.")
-                tries = 0
-            except socket.error, msg:
+                break
+
+            except socket.error:
                 self.server_socket.close()
-                bb.error("Failed to create listening socket %s: %s" % (self.socketname, msg))
                 tries -= 1
 
-    def start(self, qemuparams = None):
+        if tries == 0:
+            bb.error("Failed to create listening socket %s: " % (self.socketname))
+            return False
+        return True
+
+    def start(self, qemuparams = None, get_ip = True, extra_bootparams = None):
 
         if not os.path.exists(self.tmpdir):
             bb.error("Invalid TMPDIR path %s" % self.tmpdir)
@@ -75,12 +83,12 @@ class QemuZephyrRunner(QemuRunner):
         self.runqemu = subprocess.Popen(launch_cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,preexec_fn=os.setpgrp)
 
         #
-        # We need the preexec_fn above so that all runqemu processes can easily be killed 
+        # We need the preexec_fn above so that all runqemu processes can easily be killed
         # (by killing their process group). This presents a problem if this controlling
-        # process itself is killed however since those processes don't notice the death 
+        # process itself is killed however since those processes don't notice the death
         # of the parent and merrily continue on.
         #
-        # Rather than hack runqemu to deal with this, we add something here instead. 
+        # Rather than hack runqemu to deal with this, we add something here instead.
         # Basically we fork off another process which holds an open pipe to the parent
         # and also is setpgrp. If/when the pipe sees EOF from the parent dieing, it kills
         # the process group. This is like pctrl's PDEATHSIG but for a process group
@@ -101,16 +109,7 @@ class QemuZephyrRunner(QemuRunner):
             sys.exit(0)
 
         bb.note("qemu started, pid is %s" % self.runqemu.pid)
-        #Hack to wait for socket to show up because I'm tired
-        time.sleep(5)
-        self.create_socket()
-
-        return True
-
-    def is_alive(self):
-        if not self.runqemu:
-            return False
-        return True
+        return self.create_socket()
 
     def wait_for_serial(self, func_timeout, data_timeout):
         stopread = False
