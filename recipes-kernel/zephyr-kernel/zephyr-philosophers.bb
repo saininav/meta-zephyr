@@ -4,14 +4,12 @@ inherit deploy
 
 INHIBIT_DEFAULT_DEPS = "1"
 
-TUNE_PKGARCH_arm = "cortexm3"
 DEPENDS += "gcc-cross-${TARGET_ARCH} libgcc"
 
 export ZEPHYR_GCC_VARIANT="zephyr"
 
 # The makefiles are explicit about the flags they want, so don't unset
-# them so zephyr flags actually get used. Should we set EXTRA_CFLAGS so our
-# additional flags get picked up?
+# them so zephyr flags actually get used.
 # This is done here rather than in the task so that things still work
 # in devshell.
 python () {
@@ -21,9 +19,6 @@ python () {
 }
 
 do_configure[noexec] = "1"
-
-BOARD_arm ?= "qemu_cortex_m3"
-BOARD_x86 ?= "qemu_x86"
 
 LIB_INCLUDE_DIR="-L`dirname \`$CC -print-libgcc-file-name\``"
 CROSS_COMPILE="${STAGING_BINDIR_TOOLCHAIN}/${TARGET_PREFIX}"
