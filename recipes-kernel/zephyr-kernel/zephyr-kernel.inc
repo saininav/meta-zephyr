@@ -14,5 +14,5 @@ S = "${WORKDIR}/git"
 # filesystem.
 IMAGE_NO_MANIFEST = "1"
 
-#DEFAULTTUNE_arm = "cortexm3"
-TUNE_FEATURES_arm ="cortexm3"
+BOARD_arm ?= "qemu_cortex_m3"
+BOARD_x86 ?= "qemu_x86"
