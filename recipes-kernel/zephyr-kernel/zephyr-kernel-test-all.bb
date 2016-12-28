@@ -1,4 +1,4 @@
-LICENSE = "CLOSED"
+LICENSE = "Apache-2.0"
 INHIBIT_DEFAULT_DEPS = "1"
 
 require zephyr-kernel-test.inc
