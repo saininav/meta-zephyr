@@ -3,8 +3,11 @@ ZEPHYRTESTS_remove = "test_static_idt test_fifo test_fp_sharing \
     test_sema test_stackprot test_obj_tracing test_stack \
     test_tickless test_timer"
 
-#TBD
-ZEPHYRTESTS_remove_arm += ""
+# test_context will fail because QEMU for ARM does not emulate CortexM3 BASEPRI register
+ZEPHYRTESTS_remove_arm += "test_context"
+
+# test_critical never finishes in an unpatched QEMU either
+ZEPHYRTESTS_remove_arm += "test_critical"
 
 #Remove ARM specific tests
 ZEPHYRTESTS_remove_x86 += "test_context test_arm_irq_vector_table"
