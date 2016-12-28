@@ -1,0 +1,8 @@
+
+LIBGCC_DIR = $(shell dirname `$(CC)gcc -print-libgcc-file-name`)
+LIB_INCLUDE_DIR += -L $(LIBGCC_DIR)
+#TOOLCHAIN_CFLAGS = -I $(SYSROOT)/usr/include
+TOOLCHAIN_LIBS = gcc
+
+export LIB_INCLUDE_DIR CROSS_COMPILE TOOLCHAIN_LIBS 
+#export TOOLCHAIN_CFLAGS
