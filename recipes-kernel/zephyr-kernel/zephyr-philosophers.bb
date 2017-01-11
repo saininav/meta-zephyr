@@ -1,29 +1,6 @@
 require zephyr-kernel.inc
-
+require zephyr-kernel-common.inc
 inherit deploy
-
-INHIBIT_DEFAULT_DEPS = "1"
-
-DEPENDS += "gcc-cross-${TARGET_ARCH} libgcc"
-
-# The makefiles are explicit about the flags they want, so don't unset
-# them so zephyr flags actually get used.
-# This is done here rather than in the task so that things still work
-# in devshell.
-python () {
-    d.delVar('CFLAGS')
-    d.delVar('CXXFLAGS')
-    d.delVar('LDFLAGS')
-}
-
-do_configure[noexec] = "1"
-
-CROSS_COMPILE="${STAGING_BINDIR_TOOLCHAIN}/${TARGET_PREFIX}"
-
-# oe_runmake isn't used because of the make -e causing issues with some
-# make variables.
-
-MAKE_COMMAND = "make -j V=1 BOARD=${BOARD} CROSS_COMPILE=${CROSS_COMPILE}"
 
 do_compile () {
     cd ${S}

@@ -10,10 +10,6 @@ PV = "1.6.0"
 
 S = "${WORKDIR}/git"
 
-# There shouldn't be a manifest for zephyr kernels since there is no root
-# filesystem.
-IMAGE_NO_MANIFEST = "1"
-
 do_compile_prepend() {
     cp ${WORKDIR}/Makefile.toolchain.yocto ${S}/scripts
 }

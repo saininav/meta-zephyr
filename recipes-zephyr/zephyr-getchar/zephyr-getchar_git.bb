@@ -3,23 +3,13 @@ LICENSE="Apache-2.0"
 LIC_FILES_CHKSUM = "file://src/zephyr_getchar.c;beginline=1;endline=15;md5=d78a817213b11b6bcd9fe41669a2fd4a"
 inherit deploy
 
+require recipes-kernel/zephyr-kernel/zephyr-kernel-common.inc
+
 SRCREV="b8d511be4d2b9e05c6adb413a33d6ea510aa0c6a"
 SRC_URI = "git://github.com/pfalcon/zephyr_console_helpers.git;protocol=https"
 S = "${WORKDIR}/git/zephyr_getchar"
 
-INHIBIT_DEFAULT_DEPS = "1"
-
-DEPENDS += "gcc-cross-${TARGET_ARCH} libgcc zephyr-kernel-src"
-
-python () {
-    d.delVar('CFLAGS')
-    d.delVar('CXXFLAGS')
-    d.delVar('LDFLAGS')
-}
-
-do_configure[noexec] = "1"
-
-CROSS_COMPILE="${STAGING_BINDIR_TOOLCHAIN}/${TARGET_PREFIX}"
+DEPENDS += " zephyr-kernel-src"
 
 do_compile () {
     cd ${S}
