@@ -13,10 +13,6 @@ Building and Running Zephyr tests
 =================================
 Presently only toolchains for ARM and x86 are supported.
 (For ARM we use CortexM3 toolchain)
-The toolchain is selected via the MACHINE variable:
-
-MACHINE=qemux86 : selects x86 toolchain
-MACHINE=qemuarm : selects ARM CortexM3 toolchain
 
 Default Zephyr BOARD is selected as follows:
 
@@ -35,8 +31,8 @@ zephyr-kernel-test.inc). For example:
     $ MACHINE=qemux86 bitbake zephyr-kernel-test-all
     $ MACHINE=qemux86 bitbake zephyr-kernel-test-all -ctestimage
 or 
-    $ MACHINE=qemuarm bitbake zephyr-kernel-test-all
-    $ MACHINE=qemuarm bitbake zephyr-kernel-test-all -ctestimage
+    $ MACHINE=qemu-cortex-m3 bitbake zephyr-kernel-test-all
+    $ MACHINE=qemu-cortex-m3 bitbake zephyr-kernel-test-all -ctestimage
     
 
 
@@ -56,8 +52,8 @@ the various paths have to be entered manually):
            -no-acpi -balloon none
 
 The same sample, for ARM image:
-    $ MACHINE=qemuarm bitbake zephyr-philosophers
+    $ MACHINE=qemu-cortex-m3 bitbake zephyr-philosophers
     $ ./tmp/sysroots/x86_64-linux/usr/bin/qemu-system-arm  \
-           -kernel ./tmp/deploy/images/qemuarm/philosophers.elf \
+           -kernel ./tmp/deploy/images/qemu-cortex-m3/philosophers.elf \
            -cpu cortex-m3 -machine lm3s6965evb -nographic -vga none
 

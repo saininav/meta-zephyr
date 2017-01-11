@@ -68,7 +68,7 @@ class QemuZephyrRunner(QemuRunner):
 
         self.qemuparams = '-nographic -serial unix:%s,server' % (self.socketname)
         qemu_binary = ""
-        if 'arm' in self.machine:
+        if 'arm' in self.machine or 'cortex' in self.machine:
             qemu_binary = 'qemu-system-arm'
             qemu_machine_args = '-machine lm3s6965evb'
         elif 'x86' in self.machine:
