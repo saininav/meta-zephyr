@@ -4,6 +4,9 @@
 # filesystem.
 IMAGE_NO_MANIFEST = "1"
 
+# Zephyr BOARD is basically our MACHINE, except we must use "-" instead of "_"
+BOARD="$(echo ${MACHINE} | tr - _)"
+
 # oe_runmake isn't used because of the make -e causing issues with some
 # make variables.
 MAKE_COMMAND = "make -j V=1 BOARD=${BOARD} CROSS_COMPILE=${CROSS_COMPILE}"
