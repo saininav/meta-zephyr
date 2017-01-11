@@ -12,6 +12,7 @@ do_compile () {
 
 do_deploy () {
     install -D samples/philosophers/outdir/${BOARD}/zephyr.elf ${DEPLOYDIR}/philosophers.elf
+    install -D samples/philosophers/outdir/${BOARD}/zephyr.bin ${DEPLOYDIR}/philosophers.bin
     export DEPLOY_DIR_IMAGE=${DEPLOYDIR}/philosophers.elf
 }
 
