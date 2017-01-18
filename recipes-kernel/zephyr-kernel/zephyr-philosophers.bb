@@ -2,12 +2,12 @@ require zephyr-kernel.inc
 require zephyr-kernel-common.inc
 inherit deploy
 
+ZEPHYR_SRC_DIR = "${S}/samples/philosophers"
+ZEPHYR_BASE = "${S}"
+
 do_compile () {
-    cd ${S}
-    export ZEPHYR_BASE=${S}
-    export ZEPHYR_GCC_VARIANT="yocto"
-    ${MAKE_COMMAND} -C samples/philosophers pristine
-    ${MAKE_COMMAND} -C samples/philosophers
+    cd ${ZEPHYR_SRC_DIR}
+    oe_runmake ${ZEPHYR_MAKE_ARGS}
 }
 
 do_deploy () {

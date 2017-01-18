@@ -1,15 +1,12 @@
 # Common settings for all Zephyr recipes
 
+inherit zephyr
+
 # There shouldn't be a manifest for zephyr kernels since there is no root
 # filesystem.
 IMAGE_NO_MANIFEST = "1"
 
-# Zephyr BOARD is basically our MACHINE, except we must use "-" instead of "_"
-BOARD="$(echo ${MACHINE} | tr - _)"
-
-# oe_runmake isn't used because of the make -e causing issues with some
-# make variables.
-MAKE_COMMAND = "make -j V=1 BOARD=${BOARD} CROSS_COMPILE=${CROSS_COMPILE}"
+ZEPHYR_MAKE_ARGS = " V=1 BOARD=${BOARD} CROSS_COMPILE=${CROSS_COMPILE} ZEPHYR_GCC_VARIANT="yocto" ZEPHYR_BASE=${ZEPHYR_BASE} SYSROOT=${STAGING_DIR_TARGET}"
 
 # We always need a toolchain to cross-compile.
 INHIBIT_DEFAULT_DEPS = "1"
@@ -28,3 +25,7 @@ python () {
     d.delVar('CXXFLAGS')
     d.delVar('LDFLAGS')
 }
+OE_TERMINAL_EXPORTS += "CROSS_COMPILE"
+OE_TERMINAL_EXPORTS += "BOARD"
+OE_TERMINAL_EXPORTS += "ZEPHYR_SRC_DIR"
+OE_TERMINAL_EXPORTS += "ZEPHYR_BASE"

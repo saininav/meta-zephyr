@@ -9,14 +9,14 @@ SRCREV="b8d511be4d2b9e05c6adb413a33d6ea510aa0c6a"
 SRC_URI = "git://github.com/pfalcon/zephyr_console_helpers.git;protocol=https"
 S = "${WORKDIR}/git/zephyr_getchar"
 
+ZEPHYR_SRC_DIR = "${S}"
+ZEPHYR_BASE="${STAGING_DIR_TARGET}/usr/src/zephyr"
+
 DEPENDS += " zephyr-kernel-src"
 
 do_compile () {
-    cd ${S}
-    export ZEPHYR_GCC_VARIANT="yocto"
-    export CROSS_COMPILE=${CROSS_COMPILE}
-    export ZEPHYR_BASE=${STAGING_DIR_TARGET}/usr/src/zephyr
-    make -j V=1 BOARD=${BOARD} 
+    cd ${ZEPHYR_SRC_DIR}
+    oe_runmake ${ZEPHYR_MAKE_ARGS}
 }
 
 do_deploy () {
