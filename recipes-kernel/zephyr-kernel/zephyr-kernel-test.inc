@@ -12,6 +12,9 @@ ZEPHYRTESTS_remove_arm += "test_critical"
 #Remove ARM specific tests
 ZEPHYRTESTS_remove_x86 += "test_context test_arm_irq_vector_table"
 
+#Remove tests not intended for Nios2
+ZEPHYRTESTS_remove_nios2 += "test_context test_arm_irq_vector_table test_mem_safe"
+
 # List of all available tests
 ZEPHYRTESTS = " \
     test_arm_irq_vector_table  \
