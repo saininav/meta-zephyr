@@ -74,6 +74,12 @@ class QemuZephyrRunner(QemuRunner):
         elif 'x86' in self.machine:
             qemu_binary = 'qemu-system-i386'
             qemu_machine_args = '-machine type=pc-0.14'
+        elif 'nios2' in self.machine:
+            qemu_binary = 'qemu-system-nios2'
+            qemu_machine_args = '-machine altera_10m50_zephyr'
+        else:
+            bb.error("Unsupported QEMU: %s" % self.machine)
+            return False
 
         self.origchldhandler = signal.getsignal(signal.SIGCHLD)
         signal.signal(signal.SIGCHLD, self.handleSIGCHLD)
