@@ -1,6 +1,7 @@
 # Common settings for all Zephyr recipes
 
-inherit zephyr
+ZEPHYR_INHERIT_CLASSES += "zephyr"
+inherit ${ZEPHYR_INHERIT_CLASSES}
 
 # There shouldn't be a manifest for zephyr kernels since there is no root
 # filesystem.
@@ -15,6 +16,8 @@ ZEPHYR_MAKE_ARGS = " V=1 BOARD=${BOARD} CROSS_COMPILE=${CROSS_COMPILE} ZEPHYR_GC
 INHIBIT_DEFAULT_DEPS = "1"
 DEPENDS += "gcc-cross-${TARGET_ARCH} libgcc ${TOOLCHAIN_TARGET_TASK}"
 CROSS_COMPILE = "${STAGING_BINDIR_TOOLCHAIN}/${TARGET_PREFIX}"
+
+DEPENDS_append_qemuall = " qemu-native qemu-helper-native"
 
 do_configure[noexec] = "1"
 
@@ -35,3 +38,4 @@ OE_TERMINAL_EXPORTS += "ZEPHYR_SRC_DIR"
 OE_TERMINAL_EXPORTS += "ZEPHYR_BASE"
 OE_TERMINAL_EXPORTS += "ZEPHYR_SYSROOT"
 OE_TERMINAL_EXPORTS += "ZEPHYR_GCC_VARIANT"
+
