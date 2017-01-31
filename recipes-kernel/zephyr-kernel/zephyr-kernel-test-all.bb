@@ -16,3 +16,4 @@ do_testimage[depends] = '${@" ".join(["zephyr-kernel-test-" + x + ":do_testimage
 
 do_build[depends] = '${@" ".join(["zephyr-kernel-test-" + x + ":do_build" for x in d.getVar("ZEPHYRTESTS", True).split()])}'
 
+do_clean[depends] = '${@" ".join(["zephyr-kernel-test-" + x + ":do_clean" for x in d.getVar("ZEPHYRTESTS", True).split()])}'
