@@ -12,7 +12,7 @@ S = "${WORKDIR}/git/zephyr_getchar"
 ZEPHYR_SRC_DIR = "${S}"
 ZEPHYR_BASE="${STAGING_DIR_TARGET}/usr/src/zephyr"
 
-DEPENDS += " zephyr-kernel-src"
+DEPENDS += "zephyr-kernel-src"
 
 do_compile () {
     cd ${ZEPHYR_SRC_DIR}
@@ -21,7 +21,6 @@ do_compile () {
 
 do_deploy () {
     install -D ${S}/outdir/${BOARD}/zephyr.elf ${DEPLOYDIR}/${PN}.elf
-    export DEPLOY_DIR_IMAGE=${DEPLOYDIR}/${PN}.elf
 }
 
 addtask deploy after do_compile
