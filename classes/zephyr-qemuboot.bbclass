@@ -26,7 +26,7 @@ python bootconf_clean() {
 }
 
 python do_bootconf_write() {
-    bb.build.exec_func("write_qemuboot_conf", d)
+    bb.build.exec_func("do_write_qemuboot_conf", d)
 
     qemuimage = "%s/%s.elf" % (d.getVar('DEPLOY_DIR_IMAGE', True), d.getVar('PN', True))
     qemuimage_link = d.getVar('QEMU_IMAGE_LINK', True)
