@@ -2,7 +2,8 @@ inherit qemuboot
 
 KERNEL_IMAGETYPE = "${PN}.elf"
 QB_DEFAULT_FSTYPE = "elf"
-QB_NETWORK_DEVICE =" none"
+QB_NETWORK_DEVICE = "none"
+QB_NET = "none"
 
 IMAGE_LINK_NAME = "${PN}-image-${MACHINE}"
 
