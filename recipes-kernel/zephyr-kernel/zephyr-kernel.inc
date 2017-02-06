@@ -8,6 +8,9 @@ SRC_URI += "file://Makefile.toolchain.yocto"
 
 PV = "1.6.0"
 
+# Most tests for Zephyr 1.6 are in the "legacy" folder
+ZEPHYR_TEST_SRCDIR = "tests/legacy/kernel/"
+
 S = "${WORKDIR}/git"
 
 do_compile_prepend() {
