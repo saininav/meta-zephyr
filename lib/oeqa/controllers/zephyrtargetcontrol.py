@@ -11,7 +11,8 @@ from oeqa.utils.qemuzephyrrunner import QemuZephyrRunner
 supported_fstypes = ['elf']
 
 class QemuTargetZephyr(OETarget):
-    def __init__(self, logger, ip, server_ip, timeout=300, user='root',
+    def __init__(self, logger, ip, server_ip, target_modules_path,
+            timeout=300, user='root',
             port=None, machine='', rootfs='', kernel='', kvm=False,
             dump_dir='', dump_host_cmds='', display='', bootlog='',
             tmpdir='', dir_image='', boottime=60):
