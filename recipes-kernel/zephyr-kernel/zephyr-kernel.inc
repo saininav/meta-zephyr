@@ -1,15 +1,5 @@
-LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
 
-# tag v1.6.0
-SRCREV="d4e799d77a36eaf6d678b357c207411ec32b2d62"
-SRC_URI = "git://gerrit.zephyrproject.org/r/zephyr.git;protocol=https;branch=v1.6.0-branch"
-SRC_URI += "file://Makefile.toolchain.yocto"
-
-PV = "1.6.0"
-
-# Most tests for Zephyr 1.6 are in the "legacy" folder
-ZEPHYR_TEST_SRCDIR = "tests/legacy/kernel/"
+inherit zephyr-kernel-src
 
 S = "${WORKDIR}/git"
 
