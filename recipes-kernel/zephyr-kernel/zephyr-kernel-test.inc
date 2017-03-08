@@ -13,11 +13,10 @@ ZEPHYRTESTS_remove_arm += "test_critical"
 ZEPHYRTESTS_remove_x86 += "test_context test_arm_irq_vector_table"
 
 #Remove tests not intended for Nios2
-ZEPHYRTESTS_remove_nios2 += "test_context test_arm_irq_vector_table test_mem_safe"
+ZEPHYRTESTS_remove_nios2 += "test_context test_mem_safe"
 
 # List of all available tests
 ZEPHYRTESTS = " \
-    test_arm_irq_vector_table  \
     test_context \
     test_critical \
     test_early_sleep \
@@ -26,7 +25,6 @@ ZEPHYRTESTS = " \
     test_fifo \
     test_fifo_priv \
     test_fp_sharing \
-    test_irq_offload \
     test_libs \
     test_lifo \
     test_mail \
