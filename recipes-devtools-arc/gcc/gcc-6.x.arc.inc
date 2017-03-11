@@ -6,7 +6,7 @@ PV = "6.x.arc"
 
 # BINV should be incremented to a revision after a minor gcc release
 
-BINV = "6.2.1"
+BINV = "6.3.0"
 
 FILESEXTRAPATHS =. "${FILE_DIRNAME}/gcc:${COREBASE}/meta/recipes-devtools/gcc/gcc-6.2:"
 
@@ -23,12 +23,11 @@ LIC_FILES_CHKSUM = "\
     file://COPYING.RUNTIME;md5=fe60d87048567d4fe8c8a0ed2448bcc8 \
 "
 
-# tag=arc-2016.09-release (no branch)
-SRCREV="11f277e211411c21808cbb9f6cf165902edefea3"
+# tag arc-2017.03-eng009
+SRCREV = "7fe9c76c79cd9d263b839b4c8bd701943150e059"
 
 SRC_URI = "\
-    git://github.com/foss-for-synopsys-dwc-arc-processors/gcc.git;protocol=https;nobranch=1 \
-    file://cbd8e54244cd02bdcf4f1057be3ce96631f35ac3.patch \
+    git://github.com/foss-for-synopsys-dwc-arc-processors/gcc.git;protocol=https;branch=arc-2017.03 \
 "
 
 S = "${TMPDIR}/work-shared/gcc-${PV}-${PR}/git"
