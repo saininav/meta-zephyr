@@ -1,9 +1,15 @@
 
 python do_flash_usb() {
     import subprocess
+
+    # Append the original PATH so we can find dfu-util...
+    origbbenv = d.getVar("BB_ORIGENV", False)
+    path = d.getVar('PATH') + ":" + origbbenv.getVar('PATH')
+    os.environ['PATH'] = path
+
     return_code = subprocess.call("which dfu-util", shell=True)
     if return_code != 0:
-        bb.error("ERROR: dfu_util binary not in PATH")
+        bb.error("ERROR: dfu-util binary not in PATH")
         sys.exit(1)
 
     board = d.getVar('BOARD')
@@ -56,3 +62,4 @@ python do_flash_usb() {
 addtask do_flash_usb
 
 do_flash_usb[nostamp] = "1"
+do_flash_usb[vardepsexclude] = "BB_ORIGENV"
