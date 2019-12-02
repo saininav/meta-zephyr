@@ -20,8 +20,6 @@ CROSS_COMPILE = "${STAGING_BINDIR_TOOLCHAIN}/${TARGET_PREFIX}"
 
 DEPENDS_append_qemuall = " qemu-native qemu-helper-native"
 
-do_configure[noexec] = "1"
-
 # The makefiles are explicit about the flags they want, so don't unset
 # them so zephyr flags actually get used.
 # This is done here rather than in the task so that things still work

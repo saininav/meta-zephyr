@@ -1,0 +1,76 @@
+From 7dffe6c78e6799a3dfd3910876b29645305a55db Mon Sep 17 00:00:00 2001
+From: Naveen Saini <naveen.kumar.saini@intel.com>
+Date: Tue, 19 Nov 2019 14:36:19 +0800
+Subject: [PATCH] cmake: add yocto toolchain
+
+Upstream status: inappropriate [OE specific]
+
+Signed-off-by: Naveen Saini <naveen.kumar.saini@intel.com>
+---
+ cmake/app/boilerplate.cmake         |  1 +
+ cmake/compiler/gcc/target.cmake     |  7 -------
+ cmake/toolchain/yocto/generic.cmake | 13 +++++++++++++
+ cmake/toolchain/yocto/target.cmake  |  1 +
+ 4 files changed, 15 insertions(+), 7 deletions(-)
+ create mode 100644 cmake/toolchain/yocto/generic.cmake
+ create mode 100644 cmake/toolchain/yocto/target.cmake
+
+diff --git a/cmake/app/boilerplate.cmake b/cmake/app/boilerplate.cmake
+index b0920b1d95..2dceead6c0 100644
+--- a/cmake/app/boilerplate.cmake
++++ b/cmake/app/boilerplate.cmake
+@@ -441,6 +441,7 @@ else()
+   set(SOC_PATH ${SOC_FAMILY}/${SOC_SERIES})
+ endif()
+ 
++#include(${ZEPHYR_BASE}/cmake/toolchain-yocto.cmake)
+ include(${ZEPHYR_BASE}/cmake/target_toolchain.cmake)
+ 
+ set(KERNEL_NAME ${CONFIG_KERNEL_BIN_NAME})
+diff --git a/cmake/compiler/gcc/target.cmake b/cmake/compiler/gcc/target.cmake
+index accd4ff19f..1d4018f5e6 100644
+--- a/cmake/compiler/gcc/target.cmake
++++ b/cmake/compiler/gcc/target.cmake
+@@ -85,13 +85,6 @@ if(NOT no_libgcc)
+     OUTPUT_STRIP_TRAILING_WHITESPACE
+     )
+ 
+-  assert_exists(LIBGCC_FILE_NAME)
+-
+-  get_filename_component(LIBGCC_DIR ${LIBGCC_FILE_NAME} DIRECTORY)
+-
+-  assert_exists(LIBGCC_DIR)
+-
+-  LIST(APPEND LIB_INCLUDE_DIR "-L\"${LIBGCC_DIR}\"")
+   LIST(APPEND TOOLCHAIN_LIBS gcc)
+ endif()
+ 
+diff --git a/cmake/toolchain/yocto/generic.cmake b/cmake/toolchain/yocto/generic.cmake
+new file mode 100644
+index 0000000000..45e5777e2a
+--- /dev/null
++++ b/cmake/toolchain/yocto/generic.cmake
+@@ -0,0 +1,13 @@
++set(COMPILER gcc)
++set(LINKER ld)
++set(BINTOOLS gnu)
++
++set(ZEPHYR_SYSROOT ${ZEPHYR_SYSROOT})
++set(SYSROOT_DIR ${ZEPHYR_SYSROOT})
++set(LIBC_LIBRARY_DIR "\"${SYSROOT_DIR}\"/")
++set(LIBC_INCLUDE_DIR ${SYSROOT_DIR}/include)
++LIST(APPEND TOOLCHAIN_LIBS gcc)
++
++LIST(APPEND LIB_INCLUDE_DIR "-L\"${STAGING_LIBDIR}\"")
++
++set(TOOLCHAIN_LIBS gcc)
+diff --git a/cmake/toolchain/yocto/target.cmake b/cmake/toolchain/yocto/target.cmake
+new file mode 100644
+index 0000000000..9881313609
+--- /dev/null
++++ b/cmake/toolchain/yocto/target.cmake
+@@ -0,0 +1 @@
++# SPDX-License-Identifier: Apache-2.0
+-- 
+2.17.1
+
