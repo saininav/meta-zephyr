@@ -3,7 +3,8 @@
 PREFERRED_VERSION_zephyr-kernel ??= "1.6.0"
 
 SRCREV = "d4e799d77a36eaf6d678b357c207411ec32b2d62"
-SRC_URI = "git://gerrit.zephyrproject.org/r/zephyr.git;protocol=https;branch=v1.6.0-branch \
+
+SRC_URI = "git://github.com/zephyrproject-rtos/zephyr.git;protocol=https;branch=v1.6-branch \
           file://Makefile.toolchain.yocto "
 PV = "1.6.0"
 
