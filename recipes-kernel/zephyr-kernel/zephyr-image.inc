@@ -7,14 +7,11 @@ inherit deploy
 QEMU_BIN_PATH = "${STAGING_BINDIR_NATIVE}"
 
 ZEPHYR_BASE = "${S}"
-
-do_compile () {
-    cd ${S}
-     oe_runmake ${ZEPHYR_MAKE_ARGS} -C ${ZEPHYR_IMAGE_SRCDIR}
-}
+OECMAKE_SOURCEPATH = "${S}/${ZEPHYR_SRC_DIR}"
 
 do_deploy () {
-    install -D ${ZEPHYR_IMAGE_SRCDIR}/outdir/${BOARD}/${ZEPHYR_MAKE_OUTPUT} ${DEPLOYDIR}/${ZEPHYR_IMAGENAME}
+    install -D ${B}/zephyr/${ZEPHYR_MAKE_OUTPUT} ${DEPLOYDIR}/${ZEPHYR_IMAGENAME}
 }
 
 addtask deploy after do_compile
+do_install[noexec] = "1"

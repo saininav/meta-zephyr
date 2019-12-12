@@ -1,52 +1,61 @@
+ZEPHYRTESTS_remove = "fifo fp_sharing lifo mbox mem_heap mem_pool \
+    mem_protect mem_slab msgq mutex pipe profiling sched semaphore \
+    stack threads tickless timer workq"
 
-ZEPHYRTESTS_remove = "test_static_idt test_fifo test_fp_sharing \
-    test_sema test_stackprot test_obj_tracing test_stack \
-    test_tickless test_timer"
+
+# Exclude tests which does not build for various reasons
+ZEPHYRTESTS_remove = "gen_isr_table spinlock smp mp"
+
 
 # test_context will fail because QEMU for ARM does not emulate CortexM3 BASEPRI register
-ZEPHYRTESTS_remove_arm += "test_context"
+#ZEPHYRTESTS_remove_arm += ""
 
 # test_critical never finishes in an unpatched QEMU either
-ZEPHYRTESTS_remove_arm += "test_critical"
+#ZEPHYRTESTS_remove_arm += ""
 
 #Remove ARM specific tests
-ZEPHYRTESTS_remove_x86 += "test_context test_arm_irq_vector_table"
+#ZEPHYRTESTS_remove_x86 += ""
 
 #Remove tests not intended for Nios2
-ZEPHYRTESTS_remove_nios2 += "test_context test_mem_safe"
+#ZEPHYRTESTS_remove_nios2 += ""
 
-# List of all available tests
+# List of all available kernel tests
 ZEPHYRTESTS = " \
-    test_context \
-    test_critical \
-    test_early_sleep \
-    test_errno \
-    test_events \
-    test_fifo \
-    test_fifo_priv \
-    test_fp_sharing \
-    test_libs \
-    test_lifo \
-    test_mail \
-    test_mail_priv \
-    test_map \
-    test_map_priv \
-    test_mem_safe \
-    test_mutex \
-    test_nano_work \
-    test_obj_tracing \
-    test_pend \
-    test_pipe \
-    test_pipe_priv \
-    test_pool \
-    test_sema \
-    test_sema_priv \
-    test_sleep \
-    test_stack \
-    test_stackprot \
-    test_static_idt \
-    test_task \
-    test_task_priv \
-    test_tickless \
-    test_timer \
+    boot_page_table \
+    common \
+    context \
+    critical \
+    device \
+    early_sleep \
+    fatal \
+    fifo \
+    fp_sharing \
+    gen_isr_table \
+    interrupt \
+    lifo \
+    mbox \
+    mem_heap \
+    mem_pool \
+    mem_protect \
+    mem_slab \
+    mp \
+    msgq \
+    mutex \
+    obj_tracing \
+    pending \
+    pipe \
+    poll \
+    profiling \
+    queue \
+    sched \
+    semaphore \
+    sleep \
+    smp \
+    spinlock \
+    stack \
+    threads \
+    tickless \
+    timer \
+    workq \
+    xip \
     "

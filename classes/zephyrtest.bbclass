@@ -14,7 +14,7 @@ python zephyrtest_virtclass_handler () {
     e.data.setVar("ZEPHYR_IMAGENAME", pn + ".elf")
 
     # Most tests for Zephyr 1.6 are in the "legacy" folder
-    e.data.setVar("ZEPHYR_IMAGE_SRCDIR", "tests/legacy/kernel/" + variant)
+    e.data.setVar("ZEPHYR_SRC_DIR", "tests/kernel/" + variant)
     e.data.setVar("ZEPHYR_MAKE_OUTPUT", "zephyr.elf")
 
     # Allow to build using both foo-some_test form as well as foo-some-test

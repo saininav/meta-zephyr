@@ -4,7 +4,6 @@ INHIBIT_DEFAULT_DEPS = "1"
 require zephyr-kernel-test.inc
 
 addtask testimage
-deltask configure
 deltask compile
 deltask install
 
