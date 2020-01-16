@@ -8,6 +8,7 @@ OECMAKE_SOURCEPATH = "${ZEPHYR_SRC_DIR}"
 
 do_deploy () {
     install -D ${B}/zephyr/${ZEPHYR_MAKE_OUTPUT} ${DEPLOYDIR}/${PN}.elf
+    install -D ${B}/zephyr/zephyr.bin ${DEPLOYDIR}/${PN}.bin
 }
 
 addtask deploy after do_compile
