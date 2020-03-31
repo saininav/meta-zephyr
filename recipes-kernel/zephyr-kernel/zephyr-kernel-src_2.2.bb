@@ -2,13 +2,13 @@
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
 
-# tag v2.0
-SRCREV="ca3eb0eb31d134be41aefc952f696f7d9c356b7a"
-SRC_URI = "git://github.com/zephyrproject-rtos/zephyr.git;protocol=https;branch=v2.0-branch \
+# tag v2.2
+SRCREV="d39cb42d0920d5658fad358ad5b91de75d747a20"
+SRC_URI = "git://github.com/zephyrproject-rtos/zephyr.git;protocol=https;branch=v2.2-branch \
           file://0001-cmake-add-yocto-toolchain.patch \
         "
 inherit cmake 
-PV = "2.0.0"
+PV = "2.2.0"
 S = "${WORKDIR}/git"
 
 IMAGE_NO_MANIFEST = "1"

@@ -1,37 +1,24 @@
-From 7dffe6c78e6799a3dfd3910876b29645305a55db Mon Sep 17 00:00:00 2001
+From 511745625637da0effca13c5489a392e15d32271 Mon Sep 17 00:00:00 2001
 From: Naveen Saini <naveen.kumar.saini@intel.com>
-Date: Tue, 19 Nov 2019 14:36:19 +0800
+Date: Tue, 31 Mar 2020 13:22:17 +0800
 Subject: [PATCH] cmake: add yocto toolchain
 
 Upstream status: inappropriate [OE specific]
 
 Signed-off-by: Naveen Saini <naveen.kumar.saini@intel.com>
 ---
- cmake/app/boilerplate.cmake         |  1 +
  cmake/compiler/gcc/target.cmake     |  7 -------
  cmake/toolchain/yocto/generic.cmake | 13 +++++++++++++
  cmake/toolchain/yocto/target.cmake  |  1 +
- 4 files changed, 15 insertions(+), 7 deletions(-)
+ 3 files changed, 14 insertions(+), 7 deletions(-)
  create mode 100644 cmake/toolchain/yocto/generic.cmake
  create mode 100644 cmake/toolchain/yocto/target.cmake
 
-diff --git a/cmake/app/boilerplate.cmake b/cmake/app/boilerplate.cmake
-index b0920b1d95..2dceead6c0 100644
---- a/cmake/app/boilerplate.cmake
-+++ b/cmake/app/boilerplate.cmake
-@@ -441,6 +441,7 @@ else()
-   set(SOC_PATH ${SOC_FAMILY}/${SOC_SERIES})
- endif()
- 
-+#include(${ZEPHYR_BASE}/cmake/toolchain-yocto.cmake)
- include(${ZEPHYR_BASE}/cmake/target_toolchain.cmake)
- 
- set(KERNEL_NAME ${CONFIG_KERNEL_BIN_NAME})
 diff --git a/cmake/compiler/gcc/target.cmake b/cmake/compiler/gcc/target.cmake
-index accd4ff19f..1d4018f5e6 100644
+index 401cc28db8..5a026f4559 100644
 --- a/cmake/compiler/gcc/target.cmake
 +++ b/cmake/compiler/gcc/target.cmake
-@@ -85,13 +85,6 @@ if(NOT no_libgcc)
+@@ -66,13 +66,6 @@ if(NOT no_libgcc)
      OUTPUT_STRIP_TRAILING_WHITESPACE
      )
  
