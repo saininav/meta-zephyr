@@ -21,7 +21,6 @@ ZEPHYRTESTS_remove = "gen_isr_table spinlock smp mp"
 
 # List of all available kernel tests
 ZEPHYRTESTS = " \
-    boot_page_table \
     common \
     context \
     critical \
