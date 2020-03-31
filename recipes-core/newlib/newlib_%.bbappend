@@ -14,7 +14,6 @@ LIC_FILES_CHKSUM_arc = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552 \
 #Tag arc-2016.03
 SRCREV_arc = "e4da0f88abe8dd2a0b947bcf7cb8b3736ab94f33"
 SRC_URI_arc = "git://github.com/foss-for-synopsys-dwc-arc-processors/newlib.git;branch=arc-2.3"
-SRC_URI_arc += "file://assert-fiprintf.patch"
 S_arc  = "${WORKDIR}/git"
 
 # ERROR: QA Issue: Architecture did not match (195 to 93)
