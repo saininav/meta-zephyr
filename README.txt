@@ -8,11 +8,17 @@ https://wiki.yoctoproject.org/wiki/TipsAndTricks/BuildingZephyrImages
 Prerequisites:
 ==============
 
-Yocto distro (master)"
+This layer depends on:
+    Yocto distro (master)
+        git://git.yoctoproject.org/poky
+    Python layer (meta-openembedded/meta-python)
+        git://git.openembedded.org/meta-openembedded
 
 Modify local conf by adding:
     DISTRO="zephyr"
 
+Add "meta-openembedded/meta-oe" to BBLAYERS
+Add "meta-openembedded/meta-python" to BBLAYERS
 Add "meta-zephyr" to BBLAYERS
 
 Building and Running Zephyr Samples
