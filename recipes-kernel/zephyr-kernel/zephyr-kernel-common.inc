@@ -2,6 +2,7 @@
 
 ZEPHYR_INHERIT_CLASSES += "zephyr cmake"
 inherit ${ZEPHYR_INHERIT_CLASSES}
+inherit python3native
 
 # There shouldn't be a manifest for zephyr kernels since there is no root
 # filesystem.
@@ -20,6 +21,7 @@ export ZEPHYR_BASE="${S}"
 # We always need a toolchain to cross-compile.
 INHIBIT_DEFAULT_DEPS = "1"
 DEPENDS += "gcc-cross-${TARGET_ARCH} libgcc ${TOOLCHAIN_TARGET_TASK} gperf-native"
+DEPENDS += " python3-pyelftools-native python3-pyyaml-native"
 CROSS_COMPILE = "${STAGING_BINDIR_TOOLCHAIN}/${TARGET_PREFIX}"
 
 DEPENDS_append_qemuall = " qemu-native qemu-helper-native"
