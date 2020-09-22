@@ -1,4 +1,4 @@
-ZEPHYRTESTS_remove = "fifo fp_sharing lifo mbox mem_heap mem_pool \
+ZEPHYRTESTS_remove = "fifo fpu_sharing lifo mbox mem_heap mem_pool \
     mem_protect mem_slab msgq mutex pipe profiling sched semaphore \
     stack threads tickless timer workq"
 
@@ -23,12 +23,11 @@ ZEPHYRTESTS_remove = "gen_isr_table spinlock smp mp"
 ZEPHYRTESTS = " \
     common \
     context \
-    critical \
     device \
     early_sleep \
     fatal \
     fifo \
-    fp_sharing \
+    fpu_sharing \
     gen_isr_table \
     interrupt \
     lifo \
