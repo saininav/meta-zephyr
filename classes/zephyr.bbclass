@@ -1,5 +1,3 @@
-
-
 inherit terminal
 
 OE_TERMINAL_EXPORTS += "HOST_EXTRACFLAGS HOSTLDFLAGS TERMINFO CROSS_CURSES_LIB CROSS_CURSES_INC"
@@ -10,11 +8,12 @@ CROSS_CURSES_INC = '-DCURSES_LOC="<curses.h>"'
 TERMINFO = "${STAGING_DATADIR_NATIVE}/terminfo"
 
 KCONFIG_CONFIG_COMMAND ??= "menuconfig"
+ZEPHYR_BOARD ?= "${MACHINE}"
 
 python () {
     # Translate MACHINE into Zephyr BOARD
     # Zephyr BOARD is basically our MACHINE, except we must use "-" instead of "_"
-    board = d.getVar('MACHINE',True)
+    board = d.getVar('ZEPHYR_BOARD', True)
     board = board.replace('-', '_')
     d.setVar('BOARD',board)
 }
