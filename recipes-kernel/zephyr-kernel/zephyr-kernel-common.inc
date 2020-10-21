@@ -19,10 +19,7 @@ EXTRA_OECMAKE_append_arm = " -DZEPHYR_MODULES=${S}/modules/cmsis"
 export ZEPHYR_BASE="${S}"
 
 
-# We always need a toolchain to cross-compile.
-INHIBIT_DEFAULT_DEPS = "1"
-DEPENDS += "gcc-cross-${TARGET_ARCH} libgcc ${TOOLCHAIN_TARGET_TASK} gperf-native"
-DEPENDS += " python3-pyelftools-native python3-pyyaml-native python3-pykwalify-native"
+DEPENDS += "gperf-native python3-pyelftools-native python3-pyyaml-native python3-pykwalify-native"
 CROSS_COMPILE = "${STAGING_BINDIR_TOOLCHAIN}/${TARGET_PREFIX}"
 
 DEPENDS_append_qemuall = " qemu-native qemu-helper-native"
