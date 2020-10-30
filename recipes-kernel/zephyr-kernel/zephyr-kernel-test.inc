@@ -25,7 +25,6 @@ ZEPHYRTESTS = " \
     context \
     device \
     early_sleep \
-    fatal \
     fifo \
     fpu_sharing \
     gen_isr_table \
