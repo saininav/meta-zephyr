@@ -18,10 +18,11 @@ from oeqa.utils.qemurunner import QemuRunner
 
 class QemuZephyrRunner(QemuRunner):
 
-    def __init__(self, machine, rootfs, display, tmpdir, deploy_dir_image, logfile, boottime, dump_dir, dump_host_cmds, use_kvm):
+    def __init__(self, machine, rootfs, display, tmpdir, deploy_dir_image, logfile, boottime, dump_dir, dump_host_cmds, use_kvm, logger):
+
         QemuRunner.__init__(self, machine, rootfs, display, tmpdir,
                             deploy_dir_image, logfile, boottime, None,
-                            None, use_kvm)
+                            None, use_kvm, logger)
 
         # Popen object for runqemu
         self.socketfile = tempfile.NamedTemporaryFile()
@@ -59,7 +60,8 @@ class QemuZephyrRunner(QemuRunner):
             return False
         return True
 
-    def start(self, params=None, extra_bootparams=None):
+    def start(self, params=None,runqemuparams=None, extra_bootparams=None):
+
         if not os.path.exists(self.tmpdir):
             bb.error("Invalid TMPDIR path %s" % self.tmpdir)
             #logger.error("Invalid TMPDIR path %s" % self.tmpdir)
@@ -83,7 +85,7 @@ class QemuZephyrRunner(QemuRunner):
             qemu_machine_args = '-machine lm3s6965evb'
         elif 'x86' in self.machine:
             qemu_binary = 'qemu-system-i386'
-            qemu_machine_args = '-machine type=pc-0.14'
+            qemu_machine_args = '-machine type=pc-1.3 -no-acpi -nographic -cpu qemu32,+nx,+pae'
         elif 'nios2' in self.machine:
             qemu_binary = 'qemu-system-nios2'
             qemu_machine_args = '-machine altera_10m50_zephyr'
@@ -155,5 +157,3 @@ class QemuZephyrRunner(QemuRunner):
 
         self.log(line)
         return line
-
-

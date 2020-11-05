@@ -1,11 +1,20 @@
-import unittest
-from oeqa.oetest import oeRuntimeTest
+#
+# SPDX-License-Identifier: MIT
+#
 
-class ZephyrTest(oeRuntimeTest):
+from subprocess import Popen, PIPE
 
+from oeqa.runtime.case import OERuntimeTestCase
+from oeqa.core.decorator.oetimeout import OETimeout
+
+class ZephyrTest(OERuntimeTestCase):
+
+    @OETimeout(120)
     def test_boot_zephyr(self):
+
         success = False
         logfile = self.target.qemurunnerlog
+
         while True:
             line = self.target.serial_readline().decode("utf-8")
 

@@ -11,11 +11,16 @@ from oeqa.utils.qemuzephyrrunner import QemuZephyrRunner
 supported_fstypes = ['elf']
 
 class QemuTargetZephyr(OETarget):
-    def __init__(self, logger, ip, server_ip, target_modules_path,
-            timeout=300, user='root',
-            port=None, machine='', rootfs='', kernel='', kvm=False,
-            dump_dir='', dump_host_cmds='', display='', bootlog='',
-            tmpdir='', dir_image='', boottime=60):
+    def __init__(self, logger, ip, server_ip,
+            machine='', rootfs='', tmpdir ='',dir_image ='',display=None,
+            kernel='',boottime=60,bootlog='',kvm=False,slirp=False,
+            dump_dir='',serial_ports=0,ovmf=None,target_modules_path='',powercontrol_cmd='',powercontrol_extra_args='',
+            serialcontrol_cmd=None,serialcontrol_extra_args='',testimage_dump_target='' ):
+
+        timeout =  300
+        user = 'root'
+        port = serial_ports
+        dump_host_cmds = testimage_dump_target
 
         super(QemuTargetZephyr, self).__init__(logger, ip, server_ip, timeout,
                 user, port)
@@ -42,19 +47,16 @@ class QemuTargetZephyr(OETarget):
                                  deploy_dir_image=dir_image, display=display,
                                  logfile=self.qemulog, boottime=boottime,
                                  use_kvm=kvm, dump_dir=dump_dir,
-                                 dump_host_cmds=dump_host_cmds)
+                                 dump_host_cmds=dump_host_cmds,
+                                 logger = logger)
 
 
-    def start(self, params=None, extra_bootparams=None):
+    def start(self, params=None, runqemuparams=None, extra_bootparams=None):
         if self.runner.start(params, extra_bootparams=extra_bootparams):
             self.ip = self.runner.ip
             self.server_ip = self.runner.server_ip
         else:
-            self.stop()
             raise RuntimeError("FAILED to start qemu - check the task log and the boot log")
-
-    def stop(self):
-        self.runner.stop()
 
     def serial_readline(self):
         return self.runner.serial_readline()
