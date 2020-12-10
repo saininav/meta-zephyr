@@ -43,6 +43,29 @@ The same sample, for Nios2 image:
     $ MACHINE=qemu-nios2 bitbake zephyr-philosophers
     $ runqemu qemu-nios2
 
+Flashing
+=================================
+
+You can flash Zephyr samples to boards. Currently, the following MACHINEs
+are supported:
+ * DFU:
+  - arduino-101-sss
+  - arduino-101
+  - arduino-101-ble
+ * pyocd:
+  - 96b-nitrogen
+
+To flash the example you built with command e.g.
+
+    $ MACHINE=96b-nitrogen bitbake zephyr-philosophers
+
+call similar command with explicit flash_usb command:
+
+    $ MACHINE=96b-nitrogen bitbake zephyr-philosophers -c flash_usb
+
+dfu-util and/or pyocd need to be installed in your system. If you observe
+permission errors or the flashing process seem to hang, follow those instructions:
+https://github.com/pyocd/pyOCD/tree/master/udev
 
 Building and Running Zephyr Tests
 =================================
