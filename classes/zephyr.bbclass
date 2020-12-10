@@ -10,6 +10,9 @@ TERMINFO = "${STAGING_DATADIR_NATIVE}/terminfo"
 KCONFIG_CONFIG_COMMAND ??= "menuconfig"
 ZEPHYR_BOARD ?= "${MACHINE}"
 
+# qemuboot writes into IMGDEPLOYDIR, force to write to DEPLOY_DIR_IMAGE
+IMGDEPLOYDIR = "${DEPLOY_DIR_IMAGE}"
+
 python () {
     # Translate MACHINE into Zephyr BOARD
     # Zephyr BOARD is basically our MACHINE, except we must use "-" instead of "_"

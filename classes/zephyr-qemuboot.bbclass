@@ -11,9 +11,6 @@ IMAGE_LINK_NAME = "${PN}-image-${MACHINE}"
 # Create a link with "-image-" in the name just to keep runqemu happy
 QEMU_IMAGE_LINK = "${DEPLOY_DIR_IMAGE}/${PN}-image-${MACHINE}.elf"
 
-# qemuboot writes into IMGDEPLOYDIR, force to write to DEPLOY_DIR_IMAGE
-IMGDEPLOYDIR = "${DEPLOY_DIR_IMAGE}"
-
 CLEANFUNCS += "bootconf_clean"
 
 python bootconf_clean() {
