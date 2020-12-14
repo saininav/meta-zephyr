@@ -18,6 +18,7 @@ EXTRA_OECMAKE = " -DZEPHYR_BASE=${S} -DZEPHYR_GCC_VARIANT=yocto -DBOARD=${BOARD}
 EXTRA_OECMAKE_append_arm = " -DZEPHYR_MODULES=${S}/modules/cmsis"
 EXTRA_OECMAKE_append_nordic = "\;${S}/modules/hal/nordic"
 EXTRA_OECMAKE_append_stm32 = "\;${S}/modules/hal/stm32"
+EXTRA_OECMAKE_append_openamp = "\;${S}/modules/lib/open-amp\;${S}/modules/hal/libmetal"
 export ZEPHYR_BASE="${S}"
 
 
