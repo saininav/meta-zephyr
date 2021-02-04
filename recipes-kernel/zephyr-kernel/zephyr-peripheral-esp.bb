@@ -5,15 +5,12 @@ inherit deploy
 ZEPHYR_SAMPLE_NAME="samples/bluetooth/peripheral_esp"
 ZEPHYR_SRC_DIR = "${S}/${ZEPHYR_SAMPLE_NAME}"
 ZEPHYR_BASE = "${S}"
-
-do_compile () {
-    cd ${ZEPHYR_SRC_DIR}
-    oe_runmake ${ZEPHYR_MAKE_ARGS}
-}
+OECMAKE_SOURCEPATH = "${ZEPHYR_SRC_DIR}"
+EXTRA_OECMAKE_append = "\;${S}/modules/crypto/tinycrypt"
 
 do_deploy () {
-    install -D ${ZEPHYR_SAMPLE_NAME}/outdir/${BOARD}/zephyr.elf ${DEPLOYDIR}/${PN}.elf
-    install -D ${ZEPHYR_SAMPLE_NAME}/outdir/${BOARD}/zephyr.bin ${DEPLOYDIR}/${PN}.bin
+    install -D ${B}/zephyr/${ZEPHYR_MAKE_OUTPUT} ${DEPLOYDIR}/${PN}.elf
 }
 
 addtask deploy after do_compile
+do_install[noexec] = "1"
