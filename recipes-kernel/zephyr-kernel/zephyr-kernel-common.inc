@@ -15,10 +15,15 @@ ZEPHYR_MAKE_OUTPUT = "zephyr.elf"
 
 
 EXTRA_OECMAKE = " -DZEPHYR_BASE=${S} -DZEPHYR_GCC_VARIANT=yocto -DBOARD=${BOARD} -DARCH=${ARCH} -DCROSS_COMPILE=${CROSS_COMPILE} -DZEPHYR_SYSROOT=${ZEPHYR_SYSROOT} -DZEPHYR_TOOLCHAIN_VARIANT=yocto"
-EXTRA_OECMAKE_append_arm = " -DZEPHYR_MODULES=${S}/modules/cmsis"
-EXTRA_OECMAKE_append_nordic = "\;${S}/modules/hal/nordic"
-EXTRA_OECMAKE_append_stm32 = "\;${S}/modules/hal/stm32"
-EXTRA_OECMAKE_append_openamp = "\;${S}/modules/lib/open-amp\;${S}/modules/hal/libmetal"
+
+ZEPHYR_MODULES = ""
+ZEPHYR_MODULES_append_arm = "\;${S}/modules/cmsis"
+ZEPHYR_MODULES_append_nordic = "\;${S}/modules/hal/nordic"
+ZEPHYR_MODULES_append_stm32 = "\;${S}/modules/hal/stm32"
+ZEPHYR_MODULES_append_openamp = "\;${S}/modules/lib/open-amp\;${S}/modules/hal/libmetal"
+
+EXTRA_OECMAKE_append = " -DZEPHYR_MODULES=${ZEPHYR_MODULES}"
+
 export ZEPHYR_BASE="${S}"
 
 
