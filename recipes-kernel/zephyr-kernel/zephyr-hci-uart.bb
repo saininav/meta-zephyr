@@ -2,19 +2,16 @@ require zephyr-kernel.inc
 require zephyr-kernel-common.inc
 inherit deploy
 
-COMPATIBLE_MACHINE = "(arduino-101-ble)"
+COMPATIBLE_MACHINE = "(96b-nitrogen)"
 
 ZEPHYR_SRC_DIR = "${S}/samples/bluetooth/hci_uart"
 ZEPHYR_BASE = "${S}"
 
-do_compile () {
-    cd ${ZEPHYR_SRC_DIR}
-    oe_runmake ${ZEPHYR_MAKE_ARGS}
-}
+OECMAKE_SOURCEPATH = "${ZEPHYR_SRC_DIR}"
 
 do_deploy () {
-    install -D samples/bluetooth/hci_uart/outdir/${BOARD}/zephyr.elf ${DEPLOYDIR}/${PN}.elf
-    install -D samples/bluetooth/hci_uart/outdir/${BOARD}/zephyr.bin ${DEPLOYDIR}/${PN}.bin
+    install -D ${B}/zephyr/${ZEPHYR_MAKE_OUTPUT} ${DEPLOYDIR}/${PN}.elf
 }
 
 addtask deploy after do_compile
+do_install[noexec] = "1"
