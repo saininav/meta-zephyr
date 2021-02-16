@@ -116,4 +116,4 @@ the patches are identifable.
 Git can be configured to send mails appropriately when using git send-email:
 
 $ git config --local sendemail.to yocto@lists.yoctoproject.org
-$ git config --local format.subjectPrefix meta-zephy][PATCH
+$ git config --local format.subjectPrefix meta-zephyr][PATCH
