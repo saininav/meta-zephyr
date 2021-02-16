@@ -2,10 +2,8 @@ ZEPHYRTESTS_remove = "fifo fpu_sharing lifo mbox mem_heap mem_pool \
     mem_protect mem_slab msgq mutex pipe profiling sched semaphore \
     stack threads tickless timer workq"
 
-
 # Exclude tests which does not build for various reasons
 ZEPHYRTESTS_remove = "gen_isr_table spinlock smp mp"
-
 
 # test_context will fail because QEMU for ARM does not emulate CortexM3 BASEPRI register
 #ZEPHYRTESTS_remove_arm += ""
