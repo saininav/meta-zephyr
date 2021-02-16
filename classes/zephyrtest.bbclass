@@ -51,5 +51,3 @@ python testdata_clean() {
 }
 
 addtask do_testdata_write before do_build after do_deploy
-
-

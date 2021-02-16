@@ -9,4 +9,3 @@ TUNE_ARCH = "i586"
 TUNEVALID[iamcu] = "Intel MCU"
 
 PACKAGE_EXTRA_ARCHS_tune-iamcu = "iamcu"
-

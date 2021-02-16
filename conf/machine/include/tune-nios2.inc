@@ -1,4 +1,3 @@
-
 # Nios2 Architecture Definition
 
 DEFAULTTUNE ?= "nios2"

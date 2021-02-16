@@ -18,4 +18,3 @@ AVAILTUNES += "no-sdata"
 TUNEVALID[nodata] = "ARC no-delete-null-pointer-checks"
 TUNE_CCARGS .= "${@bb.utils.contains('TUNE_FEATURES', 'no-delete-null-pointer-checks', ' -fno-delete-null-pointer-checks', '', d)}"
 AVAILTUNES += "no-delete-null-pointer-checks"
-
