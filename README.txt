@@ -67,6 +67,15 @@ dfu-util and/or pyocd need to be installed in your system. If you observe
 permission errors or the flashing process seem to hang, follow those instructions:
 https://github.com/pyocd/pyOCD/tree/master/udev
 
+By default, pyocd tries to flash all the attached probes. This behaviour can be
+customised by defining the PYOCD_FLASH_IDS variable as a space-separated list
+of IDs. Once that is set, the tool will only try to program these IDs. You can
+query for the IDs by running `pyocd list` on your host while having the probes
+attached. Besides setting this variable through the build's configuration or
+metadata, you can also inject its value from command line with something like:
+
+    $ PYOCD_FLASH_IDS='<ID1> <ID2> <ID3>' BB_ENV_EXTRAWHITE="$BB_ENV_EXTRAWHITE PYOCD_FLASH_IDS" bitbake <TARGET> -c flash_usb
+
 Building and Running Zephyr Tests
 =================================
 Presently only toolchains for ARM, x86, IAMCU and Nios2 are supported.
