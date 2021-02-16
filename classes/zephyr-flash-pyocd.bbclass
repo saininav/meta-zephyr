@@ -1,8 +1,11 @@
 CONNECT_TIMEOUT_SECONDS ?= "30"
 
 python do_flash_usb() {
-    from pyocd.core.helpers import ConnectHelper
-    from pyocd.flash.file_programmer import FileProgrammer
+    try:
+        from pyocd.core.helpers import ConnectHelper
+        from pyocd.flash.file_programmer import FileProgrammer
+    except ImportError:
+        bb.fatal("Flashing with pyocd needs the relevant python package. Make sure your host provides it or consult your distribution packages for how to install this prerequisite.")
 
     timeout = int(d.getVar('CONNECT_TIMEOUT_SECONDS'))
     image = f"{d.getVar('DEPLOY_DIR_IMAGE')}/{d.getVar('PN')}.elf"
