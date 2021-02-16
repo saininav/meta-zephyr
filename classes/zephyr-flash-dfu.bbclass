@@ -59,7 +59,7 @@ python do_flash_usb() {
     bb.utils.unlockfile(lock)
 }
 
-addtask do_flash_usb
+addtask do_flash_usb after do_deploy
 
 do_flash_usb[nostamp] = "1"
 do_flash_usb[vardepsexclude] = "BB_ORIGENV"
