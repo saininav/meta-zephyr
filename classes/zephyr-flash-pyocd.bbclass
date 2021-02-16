@@ -1,11 +1,27 @@
+CONNECT_TIMEOUT_SECONDS ?= "30"
+
 python do_flash_usb() {
     from pyocd.core.helpers import ConnectHelper
     from pyocd.flash.file_programmer import FileProgrammer
 
+    timeout = int(d.getVar('CONNECT_TIMEOUT_SECONDS'))
     image = f"{d.getVar('DEPLOY_DIR_IMAGE')}/{d.getVar('PN')}.elf"
     bb.plain(f"Attempting to flash {image} to board {d.getVar('BOARD')}")
 
-    with ConnectHelper.session_with_chosen_probe() as session:
+    # Try to connect to a probe with a timeout
+    now = 0
+    step = 3
+    while True:
+        session = ConnectHelper.session_with_chosen_probe(blocking=False, return_first=True)
+        if session:
+            break
+        if now >= timeout:
+            bb.fatal("Timeout while trying to connect to a probe. Make sure the target device is connected and the udev is configured accordingly. See <https://github.com/mbedmicro/pyOCD/tree/master/udev> for help.")
+        bb.warn("Can't connect to the probe. Retrying in %d seconds..." % step)
+        time.sleep(step)
+        now += step
+
+    with session:
         FileProgrammer(session).program(image)
         session.board.target.reset()
 }
