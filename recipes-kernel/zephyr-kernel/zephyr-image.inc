@@ -1,4 +1,4 @@
-require zephyr-kernel.inc
+require zephyr-kernel-src.inc
 require zephyr-kernel-common.inc
 
 inherit testimage
