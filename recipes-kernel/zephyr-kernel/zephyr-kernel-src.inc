@@ -7,6 +7,11 @@ include zephyr-kernel-src-${PREFERRED_VERSION_zephyr-kernel}.inc
 
 inherit cmake
 
+# This file might be included from other places (like other layers) and not
+# having an explicit path to the patches directory, will make bitbake fail to
+# find the patch(es) in SRC_URI.
+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+
 SRC_URI = "\
     git://github.com/zephyrproject-rtos/zephyr.git;protocol=https;branch=master;name=default \
     git://github.com/zephyrproject-rtos/cmsis.git;protocol=https;destsuffix=git/modules/cmsis;name=cmsis \
