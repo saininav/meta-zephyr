@@ -27,6 +27,9 @@ python do_flash_usb() {
         if not ids:
             bb.fatal("No probe requested for programming. Make sure PYOCD_FLASH_IDS is set.")
 
+    # Fetch target type to pass to the ConnectHelper
+    target = d.getVar('PYOCD_TARGET')
+
     # Program each ID
     for id in ids:
         bb.plain(f"Attempting to flash {os.path.basename(image)} to board {d.getVar('BOARD')} [{id}]")
@@ -35,7 +38,12 @@ python do_flash_usb() {
         now = 0
         step = 3
         while True:
-            session = ConnectHelper.session_with_chosen_probe(blocking=False, return_first=True, unique_id=id)
+            if target is not None:
+                session = ConnectHelper.session_with_chosen_probe(blocking=False, return_first=True, unique_id=id, target_override=target)
+            else:
+                bb.warn(f"Target type not provided. Flashing may fail or result in an undefined behavior.")
+                session = ConnectHelper.session_with_chosen_probe(blocking=False, return_first=True, unique_id=id)
+
             if session:
                 break
             if now >= timeout:

@@ -8,3 +8,6 @@ require conf/machine/include/tune-cortexm4.inc
 MACHINEOVERRIDES =. "nordic:"
 
 TUNE_FEATURES = "armv7m cortexm4"
+
+# Target type for this machine used by Pyocd
+PYOCD_TARGET = "nrf52"
