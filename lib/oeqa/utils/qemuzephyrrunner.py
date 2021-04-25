@@ -18,11 +18,12 @@ from oeqa.utils.qemurunner import QemuRunner
 
 class QemuZephyrRunner(QemuRunner):
 
-    def __init__(self, machine, rootfs, display, tmpdir, deploy_dir_image, logfile, boottime, dump_dir, dump_host_cmds, use_kvm, logger):
+    def __init__(self, machine, rootfs, display, tmpdir, deploy_dir_image, logfile, boottime, dump_dir, dump_host_cmds, use_kvm, logger, tmpfsdir):
+
 
         QemuRunner.__init__(self, machine, rootfs, display, tmpdir,
                             deploy_dir_image, logfile, boottime, None,
-                            None, use_kvm, logger)
+                            None, use_kvm, logger, tmpfsdir)
 
         # Popen object for runqemu
         self.socketfile = tempfile.NamedTemporaryFile()
@@ -32,6 +33,7 @@ class QemuZephyrRunner(QemuRunner):
 
         self.kernel = rootfs
         self.deploy_dir_image = deploy_dir_image
+        self.tmpfsdir = tmpfsdir
         self.logfile = logfile
         self.use_kvm = use_kvm
 
@@ -73,6 +75,8 @@ class QemuZephyrRunner(QemuRunner):
             return False
         else:
             os.environ["DEPLOY_DIR_IMAGE"] = self.deploy_dir_image
+        if self.tmpfsdir:
+            env["RUNQEMU_TMPFS_DIR"] = self.tmpfsdir
 
         if not os.path.exists(self.kernel):
             bb.error("Invalid kernel path: %s" % self.kernel)

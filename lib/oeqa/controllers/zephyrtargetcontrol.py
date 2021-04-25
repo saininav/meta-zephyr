@@ -14,8 +14,8 @@ class QemuTargetZephyr(OETarget):
     def __init__(self, logger, ip, server_ip,
             machine='', rootfs='', tmpdir ='',dir_image ='',display=None,
             kernel='',boottime=60,bootlog='',kvm=False,slirp=False,
-            dump_dir='',serial_ports=0,ovmf=None,target_modules_path='',powercontrol_cmd='',powercontrol_extra_args='',
-            serialcontrol_cmd=None,serialcontrol_extra_args='',testimage_dump_target='' ):
+            dump_dir='',serial_ports=0,ovmf=None,tmpfsdir='' ,target_modules_path='',powercontrol_cmd='',powercontrol_extra_args='',
+            serialcontrol_cmd=None,serialcontrol_extra_args='',testimage_dump_target=''):
 
         timeout =  300
         user = 'root'
@@ -48,7 +48,7 @@ class QemuTargetZephyr(OETarget):
                                  logfile=self.qemulog, boottime=boottime,
                                  use_kvm=kvm, dump_dir=dump_dir,
                                  dump_host_cmds=dump_host_cmds,
-                                 logger = logger)
+                                 logger = logger, tmpfsdir=tmpfsdir)
 
 
     def start(self, params=None, runqemuparams=None, extra_bootparams=None):
