@@ -14,6 +14,7 @@ import select
 import bb
 import tempfile
 import sys
+import configparser
 from oeqa.utils.qemurunner import QemuRunner
 
 class QemuZephyrRunner(QemuRunner):
@@ -42,6 +43,72 @@ class QemuZephyrRunner(QemuRunner):
         # 5 minutes timeout...
         self.endtime = time.time() + 60*5
 
+        self.qemuboot = False
+        self.d = {'QB_KERNEL_ROOT': '/dev/vda'}
+
+    def get(self, key):
+        if key in self.d:
+            return self.d.get(key)
+        elif os.getenv(key):
+            return os.getenv(key)
+        else:
+            return ''
+
+    def set(self, key, value):
+        self.d[key] = value
+
+    def read_qemuboot(self):
+        if not self.qemuboot:
+            if self.get('DEPLOY_DIR_IMAGE'):
+                deploy_dir_image = self.get('DEPLOY_DIR_IMAGE')
+            else:
+                bb.warning("Can't find qemuboot conf file, DEPLOY_DIR_IMAGE is NULL!")
+                return
+
+            if self.rootfs and not os.path.exists(self.rootfs):
+                # Lazy rootfs
+                machine = self.get('MACHINE')
+                if not machine:
+                    machine = os.path.basename(deploy_dir_image)
+                self.qemuboot = "%s/%s-%s.qemuboot.conf" % (deploy_dir_image,
+                        self.rootfs, machine)
+            else:
+                cmd = 'ls -t %s/*.qemuboot.conf' %  deploy_dir_image
+                try:
+                    qbs = subprocess.check_output(cmd, shell=True).decode('utf-8')
+                except subprocess.CalledProcessError as err:
+                    raise RunQemuError(err)
+                if qbs:
+                    for qb in qbs.split():
+                        # Don't use initramfs when other choices unless fstype is ramfs
+                        if '-initramfs-' in os.path.basename(qb) and self.fstype != 'cpio.gz':
+                                continue
+                        self.qemuboot = qb
+                        break
+                    if not self.qemuboot:
+                        # Use the first one when no choice
+                        self.qemuboot = qbs.split()[0]
+                    self.qbconfload = True
+
+        if not self.qemuboot:
+            # If we haven't found a .qemuboot.conf at this point it probably
+            # doesn't exist, continue without
+            return
+
+        if not os.path.exists(self.qemuboot):
+            raise RunQemuError("Failed to find %s (wrong image name or BSP does not support running under qemu?)." % self.qemuboot)
+
+        cf = configparser.ConfigParser()
+        cf.read(self.qemuboot)
+        for k, v in cf.items('config_bsp'):
+            k_upper = k.upper()
+            if v.startswith("../"):
+                v = os.path.abspath(os.path.dirname(self.qemuboot) + "/" + v)
+            elif v == ".":
+                v = os.path.dirname(self.qemuboot)
+            self.set(k_upper, v)
+
+
     def create_socket(self):
         bb.note("waiting at most %s seconds for qemu pid" % self.runqemutime)
         tries = self.runqemutime
@@ -66,7 +133,6 @@ class QemuZephyrRunner(QemuRunner):
 
         if not os.path.exists(self.tmpdir):
             bb.error("Invalid TMPDIR path %s" % self.tmpdir)
-            #logger.error("Invalid TMPDIR path %s" % self.tmpdir)
             return False
         else:
             os.environ["OE_TMPDIR"] = self.tmpdir
@@ -82,20 +148,17 @@ class QemuZephyrRunner(QemuRunner):
             bb.error("Invalid kernel path: %s" % self.kernel)
             return False
 
-        self.qemuparams = '-nographic -serial unix:%s,server' % (self.socketname)
-        qemu_binary = ""
-        if 'arm' in self.machine or 'cortex' in self.machine:
-            qemu_binary = 'qemu-system-arm'
-            qemu_machine_args = '-machine lm3s6965evb'
-        elif 'x86' in self.machine:
-            qemu_binary = 'qemu-system-i386'
-            qemu_machine_args = '-machine type=pc-1.3 -no-acpi -nographic -cpu qemu32,+nx,+pae'
-        elif 'nios2' in self.machine:
-            qemu_binary = 'qemu-system-nios2'
-            qemu_machine_args = '-machine altera_10m50_zephyr'
-        else:
+        self.qemuparams = '-serial unix:%s,server' % (self.socketname)
+
+        self.read_qemuboot()
+        qemu_binary = self.get('QB_SYSTEM_NAME')
+        qemu_machine_args = self.get('QB_MACHINE')
+        if qemu_binary == "" or qemu_machine_args == "":
             bb.error("Unsupported QEMU: %s" % self.machine)
             return False
+
+        self.qemuparams += " %s " %self.get('QB_OPT_APPEND')
+        self.qemuparams += " %s " %self.get('QB_CPU')
 
         self.origchldhandler = signal.getsignal(signal.SIGCHLD)
         signal.signal(signal.SIGCHLD, self.handleSIGCHLD)
