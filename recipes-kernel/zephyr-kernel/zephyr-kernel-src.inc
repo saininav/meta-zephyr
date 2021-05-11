@@ -1,10 +1,6 @@
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
 
-# Default to a stable version
-PREFERRED_VERSION_zephyr-kernel ??= "2.5.0"
-include zephyr-kernel-src-${PREFERRED_VERSION_zephyr-kernel}.inc
-
 inherit cmake
 
 # This file might be included from other places (like other layers) and not
@@ -23,3 +19,7 @@ SRC_URI = "\
     file://0001-cmake-add-yocto-toolchain.patch \
     "
 S = "${WORKDIR}/git"
+
+# Default to a stable version
+PREFERRED_VERSION_zephyr-kernel ??= "2.5.0"
+include zephyr-kernel-src-${PREFERRED_VERSION_zephyr-kernel}.inc
