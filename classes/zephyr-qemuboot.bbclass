@@ -36,19 +36,18 @@ python do_bootconf_write() {
 
 addtask do_bootconf_write before do_build after do_deploy
 
-# The runqemu script requires the native sysroot populated for the qemu
-# recipes. Usually, this is pulled in by a do_image dependency (see
-# baremetal-helloworld_git, for example), but in this case, there is no such
-# task, so we hook in the dependency to do_bootconf_write. This also ensures
-# that builds from sstate will also have this requirement satisfied.
+# The runqemu script requires the native sysroot populated for the
+# qemu-helper-native recipes. Usually, this is pulled in by a do_image
+# dependency (see baremetal-helloworld_git, for example), but in this case,
+# there is no such task, so we hook in the dependency to do_bootconf_write.
+# This also ensures that builds from sstate will also have this requirement
+# satisfied.
 python () {
-    # do_addto_recipe_sysroot doesnt exist for all recipes, but we need it to have
-    # /usr/bin on recipe-sysroot (qemu) populated
     def extraimage_getdepends(task):
         deps = ""
         for dep in (d.getVar('EXTRA_IMAGEDEPENDS') or "").split():
         # Make sure we only add it for qemu
-            if 'qemu' in dep:
+            if 'qemu-helper-native' in dep:
                 deps += " %s:%s" % (dep, task)
         return deps
     d.appendVarFlag('do_bootconf_write', 'depends', extraimage_getdepends('do_addto_recipe_sysroot'))
