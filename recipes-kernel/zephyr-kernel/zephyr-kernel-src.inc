@@ -22,5 +22,5 @@ SRC_URI = "\
 S = "${WORKDIR}/git"
 
 # Default to a stable version
-PREFERRED_VERSION_zephyr-kernel ??= "2.5.0"
+PREFERRED_VERSION_zephyr-kernel ??= "2.6.0"
 include zephyr-kernel-src-${PREFERRED_VERSION_zephyr-kernel}.inc
