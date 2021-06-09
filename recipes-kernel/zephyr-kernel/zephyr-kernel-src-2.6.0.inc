@@ -6,6 +6,7 @@ SRCREV_stm32 = "f8ff8d25aa0a9e65948040c7b47ec67f3fa300df"
 SRCREV_open-amp = "6010f0523cbc75f551d9256cf782f173177acdef"
 SRCREV_libmetal = "39d049d4ae68e6f6d595fce7de1dcfc1024fb4eb"
 SRCREV_tinycrypt = "3e9a49d2672ec01435ffbf0d788db6d95ef28de0"
+SRCREV_mbedtls = "5765cb7f75a9973ae9232d438e361a9d7bbc49e7"
 
 PV = "2.6.0+git${SRCPV}"
 
