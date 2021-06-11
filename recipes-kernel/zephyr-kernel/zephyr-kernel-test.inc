@@ -36,7 +36,6 @@ ZEPHYRTESTS = " \
     mp \
     msgq \
     mutex \
-    obj_tracing \
     pending \
     pipe \
     poll \
