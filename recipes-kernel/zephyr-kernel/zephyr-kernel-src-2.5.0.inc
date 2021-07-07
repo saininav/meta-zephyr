@@ -9,7 +9,9 @@ SRCREV_libmetal = "9d4ee2c3cfd5f49861939447990f3b7d7bf9bf94"
 SRCREV_tinycrypt = "3e9a49d2672ec01435ffbf0d788db6d95ef28de0"
 SRCREV_mbedtls = "24d84ecff195fb15c889d9046e44e4804d626c67"
 
+ZEPHYR_BRANCH = "main"
 PV = "2.5.0+git${SRCPV}"
 
-SRC_URI_append = " file://0001-x86-fix-efi-binary-generation-issue-in-cross-compila.patch \
-            "
+SRC_URI_append = " file://0001-zephyr-2.5.0-cmake-add-yocto-toolchain.patch \
+                    file://0001-x86-fix-efi-binary-generation-issue-in-cross-compila.patch \
+                    "

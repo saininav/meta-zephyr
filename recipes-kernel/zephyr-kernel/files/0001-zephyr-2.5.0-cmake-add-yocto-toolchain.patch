@@ -1,6 +1,6 @@
-From bfab268c870548e3e7a24ea67ebed2a0513b2307 Mon Sep 17 00:00:00 2001
+From 511745625637da0effca13c5489a392e15d32271 Mon Sep 17 00:00:00 2001
 From: Naveen Saini <naveen.kumar.saini@intel.com>
-Date: Wed, 7 Jul 2021 13:53:05 +0800
+Date: Tue, 31 Mar 2020 13:22:17 +0800
 Subject: [PATCH] cmake: add yocto toolchain
 
 Upstream status: inappropriate [OE specific]
@@ -15,23 +15,23 @@ Signed-off-by: Naveen Saini <naveen.kumar.saini@intel.com>
  create mode 100644 cmake/toolchain/yocto/target.cmake
 
 diff --git a/cmake/compiler/gcc/target.cmake b/cmake/compiler/gcc/target.cmake
-index 2b90c5d2ef..b6f28b2f87 100644
+index 401cc28db8..5a026f4559 100644
 --- a/cmake/compiler/gcc/target.cmake
 +++ b/cmake/compiler/gcc/target.cmake
-@@ -68,13 +68,6 @@ execute_process(
-   OUTPUT_STRIP_TRAILING_WHITESPACE
-   )
+@@ -66,13 +66,6 @@ if(NOT no_libgcc)
+     OUTPUT_STRIP_TRAILING_WHITESPACE
+     )
  
--assert_exists(LIBGCC_FILE_NAME)
+-  assert_exists(LIBGCC_FILE_NAME)
 -
--get_filename_component(LIBGCC_DIR ${LIBGCC_FILE_NAME} DIRECTORY)
+-  get_filename_component(LIBGCC_DIR ${LIBGCC_FILE_NAME} DIRECTORY)
 -
--assert_exists(LIBGCC_DIR)
+-  assert_exists(LIBGCC_DIR)
 -
--LIST(APPEND LIB_INCLUDE_DIR "-L\"${LIBGCC_DIR}\"")
- LIST(APPEND TOOLCHAIN_LIBS gcc)
+-  LIST(APPEND LIB_INCLUDE_DIR "-L\"${LIBGCC_DIR}\"")
+   LIST(APPEND TOOLCHAIN_LIBS gcc)
+ endif()
  
- if(SYSROOT_DIR)
 diff --git a/cmake/toolchain/yocto/generic.cmake b/cmake/toolchain/yocto/generic.cmake
 new file mode 100644
 index 0000000000..45e5777e2a
