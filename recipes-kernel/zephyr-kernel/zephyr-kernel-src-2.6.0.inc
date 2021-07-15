@@ -14,4 +14,5 @@ PV = "2.6.0+git${SRCPV}"
 
 SRC_URI_append = " file://0001-cmake-add-yocto-toolchain.patch \
                     file://0001-x86-fix-efi-binary-generation-issue-in-cross-compila.patch \
+                    file://arduino-nano-33-ble-storage-partition.patch \
                     "
