@@ -1,3 +1,3 @@
-EXTRA_OECONF_remove =   "--enable_multilib"
-EXTRA_OECONF_append =   " --disable-multilib"
+EXTRA_OECONF:remove =   "--enable_multilib"
+EXTRA_OECONF:append =   " --disable-multilib"
 

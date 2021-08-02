@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 QEMU_TARGETS = ""
 
@@ -6,8 +6,8 @@ QEMU_TARGETS = ""
 #      file://nios2-add-support.patch \
 #      "
 
-EXTRA_OECONF_remove = "--target-list"
+EXTRA_OECONF:remove = "--target-list"
 
 #QEMUS_BUILT = "arm-softmmu i386-softmmu nios2-softmmu"
 QEMUS_BUILT = "arm-softmmu i386-softmmu"
-EXTRA_OECONF_append = " --target-list="${QEMUS_BUILT}""
+EXTRA_OECONF:append = " --target-list="${QEMUS_BUILT}""

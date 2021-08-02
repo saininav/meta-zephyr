@@ -2,7 +2,7 @@ DEFAULTTUNE ?= "arc"
 
 TUNE_ARCH = "arc"
 TUNE_PKGARCH = "arc"
-TUNE_FEATURES_tune-arc = "littleendian"
+TUNE_FEATURES:tune-arc = "littleendian"
 TUNE_CCARGS = ""
 
 TUNEVALID[littleendian] = "Little endian mode"

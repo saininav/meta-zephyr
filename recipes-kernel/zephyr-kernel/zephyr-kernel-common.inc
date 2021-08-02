@@ -27,19 +27,19 @@ EXTRA_OECMAKE = "\
     "
 
 ZEPHYR_MODULES = ""
-ZEPHYR_MODULES_append_arm = "\;${S}/modules/cmsis"
-ZEPHYR_MODULES_append_nordic = "\;${S}/modules/hal/nordic"
-ZEPHYR_MODULES_append_stm32 = "\;${S}/modules/hal/stm32"
-ZEPHYR_MODULES_append_openamp = "\;${S}/modules/lib/open-amp\;${S}/modules/hal/libmetal"
+ZEPHYR_MODULES:append:arm = "\;${S}/modules/cmsis"
+ZEPHYR_MODULES:append:nordic = "\;${S}/modules/hal/nordic"
+ZEPHYR_MODULES:append:stm32 = "\;${S}/modules/hal/stm32"
+ZEPHYR_MODULES:append:openamp = "\;${S}/modules/lib/open-amp\;${S}/modules/hal/libmetal"
 
-EXTRA_OECMAKE_append = " -DZEPHYR_MODULES=${ZEPHYR_MODULES}"
+EXTRA_OECMAKE:append = " -DZEPHYR_MODULES=${ZEPHYR_MODULES}"
 
 export ZEPHYR_BASE="${S}"
 
 DEPENDS += "gperf-native python3-pyelftools-native python3-pyyaml-native python3-pykwalify-native"
 CROSS_COMPILE = "${STAGING_BINDIR_TOOLCHAIN}/${TARGET_PREFIX}"
 
-DEPENDS_append_qemuall = " qemu-native qemu-helper-native"
+DEPENDS:append:qemuall = " qemu-native qemu-helper-native"
 
 # The makefiles are explicit about the flags they want, so don't unset
 # them so zephyr flags actually get used.
@@ -61,7 +61,7 @@ OE_TERMINAL_EXPORTS += "ZEPHYR_GCC_VARIANT"
 
 IMAGE_FSTYPES = "elf bin"
 
-do_configure_prepend() {
+do_configure:prepend() {
     # Zephyr expects CPPFLAGS as cmake argument as and ignores env variables.
     unset CPPFLAGS
 }

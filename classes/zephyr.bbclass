@@ -48,7 +48,7 @@ do_menuconfig[nostamp] = "1"
 do_menuconfig[dirs] = "${B}"
 addtask menuconfig after do_configure
 
-python do_devshell_prepend () {
+python do_devshell:prepend () {
     # Most likely we need to manually edit prj.conf...
     os.chdir(d.getVar('ZEPHYR_SRC_DIR', True))
 }

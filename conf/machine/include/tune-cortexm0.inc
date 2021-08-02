@@ -22,10 +22,10 @@ TUNEVALID[armv6m] = "Enable Cortex-M0 specific processor optimizations"
 TUNE_CCARGS .= "${@bb.utils.contains('TUNE_FEATURES', 'armv6m', ' -march=armv6-m', '', d)}"
 MACHINEOVERRIDES =. "${@bb.utils.contains('TUNE_FEATURES', 'armv6m', 'armv6m:', '' ,d)}"
 
-ARMPKGARCH_tune-cortexm0 = "cortexm0"
-TUNE_FEATURES_tune-cortexm0 = "${TUNE_FEATURES_tune-armv6} cortexm0"
+ARMPKGARCH:tune-cortexm0 = "cortexm0"
+TUNE_FEATURES:tune-cortexm0 = "${TUNE_FEATURES:tune-armv6} cortexm0"
 
-PACKAGE_EXTRA_ARCHS_tune-cortexm0 = "${PACKAGE_EXTRA_ARCHS_tune-armv6m} cortexm0-vfp"
+PACKAGE_EXTRA_ARCHS:tune-cortexm0 = "${PACKAGE_EXTRA_ARCHS:tune-armv6m} cortexm0-vfp"
 
-TUNE_FEATURES_tune-cortexm0 = "armv6m vfp cortexm0 thumb no-thumb-interwork soft"
+TUNE_FEATURES:tune-cortexm0 = "armv6m vfp cortexm0 thumb no-thumb-interwork soft"
 

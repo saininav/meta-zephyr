@@ -12,7 +12,7 @@ SRCREV_mbedtls = "5765cb7f75a9973ae9232d438e361a9d7bbc49e7"
 ZEPHYR_BRANCH = "v2.6-branch"
 PV = "2.6.0+git${SRCPV}"
 
-SRC_URI_append = " file://0001-cmake-add-yocto-toolchain.patch \
+SRC_URI:append = " file://0001-cmake-add-yocto-toolchain.patch \
                     file://0001-x86-fix-efi-binary-generation-issue-in-cross-compila.patch \
                     file://arduino-nano-33-ble-storage-partition.patch \
                     "

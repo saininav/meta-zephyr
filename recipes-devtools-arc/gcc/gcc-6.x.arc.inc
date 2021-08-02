@@ -73,9 +73,9 @@ EXTRA_OECONF_INTERMEDIATE = "\
     --disable-libssp \
 "
 
-EXTRA_OECONF_append_libc-uclibc = " --disable-decimal-float "
+EXTRA_OECONF:append:libc-uclibc = " --disable-decimal-float "
 
-EXTRA_OECONF_append_arc = ' --with-pkgversion="ARCompact/ARCv2 ISA elf32 toolchain ${SRCREV}"'
+EXTRA_OECONF:append:arc = ' --with-pkgversion="ARCompact/ARCv2 ISA elf32 toolchain ${SRCREV}"'
 
 EXTRA_OECONF_PATHS = "\
     --with-gxx-include-dir=${STAGING_DIR_TARGET}${target_includedir}/c++/${BINV} \

@@ -26,12 +26,12 @@ SRC_URI = "\
 
 S  = "${WORKDIR}/git"
 
-do_configure_prepend () {
+do_configure:prepend () {
         rm -rf ${S}/gdb ${S}/libdecnumber ${S}/readline ${S}/sim
 }
 
 CONFIG_SHELL = "/bin/bash"
 
-sysroot_stage_all_append() {
+sysroot_stage_all:append() {
 	sysroot_stage_dir ${D}${exec_prefix}/extlib ${SYSROOT_DESTDIR}${exec_prefix}/extlib
 }

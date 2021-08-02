@@ -14,6 +14,6 @@ do_install () {
 }
 
 PACKAGES = "${PN}"
-FILES_${PN} = "/usr/src/zephyr"
+FILES:${PN} = "/usr/src/zephyr"
 
 SYSROOT_DIRS += "/usr/src/zephyr"
