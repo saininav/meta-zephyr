@@ -191,7 +191,7 @@ class QemuZephyrRunner(QemuRunner):
             r = os.fdopen(r)
             x = r.read()
             os.killpg(os.getpgid(self.runqemu.pid), signal.SIGTERM)
-            sys.exit(0)
+            os._exit(0)
 
         bb.note("qemu started, pid is %s" % self.runqemu.pid)
         return self.create_socket()
