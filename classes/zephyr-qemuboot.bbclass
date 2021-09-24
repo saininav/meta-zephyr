@@ -48,7 +48,7 @@ python () {
         for dep in (d.getVar('EXTRA_IMAGEDEPENDS') or "").split():
         # Make sure we only add it for qemu
             if 'qemu-helper-native' in dep:
-                deps += " %s:%s" % (dep, task)
+                deps += " qemu-helper-native:%s" % (task)
         return deps
     d.appendVarFlag('do_bootconf_write', 'depends', extraimage_getdepends('do_addto_recipe_sysroot'))
     d.appendVarFlag('do_bootconf_write', 'depends', extraimage_getdepends('do_populate_sysroot'))
