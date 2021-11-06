@@ -10,14 +10,14 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI = "\
     git://github.com/zephyrproject-rtos/zephyr.git;protocol=https;branch=${ZEPHYR_BRANCH};name=default \
-    git://github.com/zephyrproject-rtos/cmsis.git;protocol=https;destsuffix=git/modules/cmsis;name=cmsis \
-    git://github.com/zephyrproject-rtos/hal_nordic.git;protocol=https;destsuffix=git/modules/hal/nordic;name=nordic \
-    git://github.com/zephyrproject-rtos/hal_stm32.git;branch=main;protocol=https;destsuffix=git/modules/hal/stm32;name=stm32 \
-    git://github.com/zephyrproject-rtos/mbedtls.git;protocol=https;destsuffix=git/modules/lib/mbedtls;name=mbedtls \
-    git://github.com/zephyrproject-rtos/open-amp.git;protocol=https;destsuffix=git/modules/lib/open-amp;name=open-amp \
-    git://github.com/zephyrproject-rtos/openthread.git;protocol=https;branch=zephyr;destsuffix=git/modules/lib/openthread;name=openthread \
-    git://github.com/zephyrproject-rtos/libmetal.git;protocol=https;destsuffix=git/modules/hal/libmetal;name=libmetal \
-    git://github.com/zephyrproject-rtos/tinycrypt.git;protocol=https;destsuffix=git/modules/crypto/tinycrypt;name=tinycrypt \
+    git://github.com/zephyrproject-rtos/cmsis.git;protocol=https;nobranch=1;destsuffix=git/modules/cmsis;name=cmsis \
+    git://github.com/zephyrproject-rtos/hal_nordic.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/nordic;name=nordic \
+    git://github.com/zephyrproject-rtos/hal_stm32.git;protocol=https;branch=main;destsuffix=git/modules/hal/stm32;name=stm32 \
+    git://github.com/zephyrproject-rtos/mbedtls.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/mbedtls;name=mbedtls \
+    git://github.com/zephyrproject-rtos/open-amp.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/open-amp;name=open-amp \
+    git://github.com/zephyrproject-rtos/openthread.git;protocol=https;nobranch=1;branch=zephyr;destsuffix=git/modules/lib/openthread;name=openthread \
+    git://github.com/zephyrproject-rtos/libmetal.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/libmetal;name=libmetal \
+    git://github.com/zephyrproject-rtos/tinycrypt.git;protocol=https;nobranch=1;destsuffix=git/modules/crypto/tinycrypt;name=tinycrypt \
     "
 S = "${WORKDIR}/git"
 
