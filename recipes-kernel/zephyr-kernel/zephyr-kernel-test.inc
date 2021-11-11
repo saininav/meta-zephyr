@@ -14,16 +14,16 @@ ZEPHYRTESTS:remove:qemu-x86 = "common device interrupt poll queue sleep"
 ZEPHYRTESTS:remove:stm32mp157c-dk2 = "common device poll queue sleep"
 
 # test_context will fail because QEMU for ARM does not emulate CortexM3 BASEPRI register
-#ZEPHYRTESTS:remove:arm += ""
+#ZEPHYRTESTS:remove:arm = ""
 
 # test_critical never finishes in an unpatched QEMU either
-#ZEPHYRTESTS:remove:arm += ""
+#ZEPHYRTESTS:remove:arm = ""
 
 #Remove ARM specific tests
-#ZEPHYRTESTS:remove:x86 += ""
+#ZEPHYRTESTS:remove:x86 = ""
 
 #Remove tests not intended for Nios2
-#ZEPHYRTESTS:remove:nios2 += ""
+#ZEPHYRTESTS:remove:nios2 = ""
 
 # List of all available kernel tests
 ZEPHYRTESTS = " \
