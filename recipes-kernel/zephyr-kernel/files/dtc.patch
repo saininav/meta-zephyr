@@ -1,0 +1,43 @@
+Upstream-Status: Submitted [https://github.com/zephyrproject-rtos/zephyr/pull/40364]
+Signed-off-by: Ross Burton <ross.burton@arm.com>
+
+From deb6e9b29d77f0d86eb188fb3c5fc6f470277d3d Mon Sep 17 00:00:00 2001
+From: Ross Burton <ross.burton@arm.com>
+Date: Mon, 15 Nov 2021 14:01:47 +0000
+Subject: [PATCH] cmake: expand DTC version regex
+
+DTC can be built with both traditional Makefiles or Meson. When built
+with Makefiles the --version output looks like 'Version: DTC
+1.6.1-dirty' but when built with Meson the output is 'Version: DTC
+v1.6.1+.
+
+This fails to match the version regex and the cmake then fails:
+
+CMake Error at cmake/host-tools.cmake:28 (if):
+  if given arguments:
+    "VERSION_GREATER" "1.4.6"
+  Unknown arguments specified
+
+Expanding the regex with an optional 'v' covers both cases and the build
+succeeds.
+
+Signed-off-by: Ross Burton <ross.burton@arm.com>
+---
+ cmake/host-tools.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cmake/host-tools.cmake b/cmake/host-tools.cmake
+index cb7bf2e281..93d33d6390 100644
+--- a/cmake/host-tools.cmake
++++ b/cmake/host-tools.cmake
+@@ -20,7 +20,7 @@ if(DTC)
+     )
+ 
+   if(${dtc_status} EQUAL 0)
+-    string(REGEX MATCH "Version: DTC ([0-9]+[.][0-9]+[.][0-9]+).*" out_var ${dtc_version_output})
++    string(REGEX MATCH "Version: DTC v?([0-9]+[.][0-9]+[.][0-9]+).*" out_var ${dtc_version_output})
+ 
+     # Since it is optional, an outdated version is not an error. If an
+     # outdated version is discovered, print a warning and proceed as if
+-- 
+2.25.1
