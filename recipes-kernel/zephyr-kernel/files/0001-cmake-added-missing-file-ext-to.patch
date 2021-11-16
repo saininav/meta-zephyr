@@ -1,0 +1,42 @@
+From 783c1f78c8e39751fe89d0883c8bce7336f55e94 Mon Sep 17 00:00:00 2001
+From: Torsten Rasmussen <Torsten.Rasmussen@nordicsemi.no>
+Date: Thu, 19 Aug 2021 08:53:00 +0200
+Subject: [PATCH] cmake: added missing file ext to
+ lv_font_dejavu_16_persian_hebrew.c
+
+CMake >= 3.20 requires file extensions explicitly added to source files.
+
+See CMP0115:
+> Starting in CMake 3.20, CMake prefers all source files to have their
+> extensions explicitly listed:
+
+In the CMakeLists.txt, the file lv_font_dejavu_16_persian_hebrew.c
+was added without its .c extension, causing never CMakes ti fail
+discovering the file.
+
+This has been fixed by correctly add the file as:
+lv_font_dejavu_16_persian_hebrew.c
+
+Signed-off-by: Torsten Rasmussen <Torsten.Rasmussen@nordicsemi.no>
+---
+Upstream-status: Accepted
+
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 57b07c84..0f433edc 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -58,7 +58,7 @@ zephyr_library_sources(
+     src/lv_misc/lv_utils.c
+ 
+     src/lv_font/lv_font.c
+-    src/lv_font/lv_font_dejavu_16_persian_hebrew
++    src/lv_font/lv_font_dejavu_16_persian_hebrew.c
+     src/lv_font/lv_font_fmt_txt.c
+     src/lv_font/lv_font_loader.c
+     src/lv_font/lv_font_montserrat_12.c
+-- 
+Gitee
+
