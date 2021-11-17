@@ -12,7 +12,8 @@ SRCREV_tinycrypt = "3e9a49d2672ec01435ffbf0d788db6d95ef28de0"
 ZEPHYR_BRANCH = "v2.6-branch"
 PV = "2.6.1+git${SRCPV}"
 
-SRC_URI:append = " file://0001-cmake-add-yocto-toolchain.patch \
-                    file://0001-x86-fix-efi-binary-generation-issue-in-cross-compila.patch \
-                    file://arduino-nano-33-ble-storage-partition.patch \
-                    "
+SRC_URI:append = " \
+    file://0001-cmake-add-yocto-toolchain.patch \
+    file://0001-x86-fix-efi-binary-generation-issue-in-cross-compila.patch \
+    file://arduino-nano-33-ble-storage-partition.patch \
+"
