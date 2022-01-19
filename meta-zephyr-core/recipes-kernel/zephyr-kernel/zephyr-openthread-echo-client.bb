@@ -2,9 +2,6 @@ include zephyr-sample.inc
 
 ZEPHYR_SRC_DIR = "${S}/samples/net/sockets/echo_client"
 
-ZEPHYR_MODULES:append = "\;${S}/modules/lib/mbedtls"
-ZEPHYR_MODULES:append = "\;${S}/modules/lib/openthread"
-
 EXTRA_OECMAKE += "-DOVERLAY_CONFIG=overlay-ot.conf"
 
 # The overlay config and OpenThread itself imposes some specific requirements
