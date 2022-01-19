@@ -19,7 +19,7 @@ Modify local conf by adding:
 
 Add "meta-openembedded/meta-oe" to BBLAYERS
 Add "meta-openembedded/meta-python" to BBLAYERS
-Add "meta-zephyr-core" and "meta-zephyr-bsp" to BBLAYERS
+Add "meta-zephyr" to BBLAYERS
 
 Building and Running Zephyr Samples
 ===================================
