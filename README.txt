@@ -105,6 +105,22 @@ or
     $ MACHINE=qemu-nios2 bitbake zephyr-kernel-test-all -c testimage
         
 
+Generating OE Machines based on Zephyr board definitions
+========================================================
+We currently have a recipe called generate-zephry-machines which will go through
+and attempt to create an OE machine conf file for every board in Zephyr.
+
+This is run via:
+
+MACHINE=qemu-x86 bitbake generate-zephyr-machines
+
+The output is then put in the normal deploy dir. This recipe is really only
+useful for maintainers. There is currently no way to use the Zephyr board 
+definition in a single step build. So if you wish to regenerate those machines,
+you will need to run the above, copy the conf files from the deploy dir to the
+machine conf directory and then run your build. This shouldn't need to happen 
+often.
+
 Contributing
 ============
 
