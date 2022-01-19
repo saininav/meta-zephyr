@@ -10,15 +10,46 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI = "\
     git://github.com/zephyrproject-rtos/zephyr.git;protocol=https;branch=${ZEPHYR_BRANCH};name=default \
-    git://github.com/zephyrproject-rtos/cmsis.git;protocol=https;nobranch=1;destsuffix=git/modules/cmsis;name=cmsis \
+    git://github.com/zephyrproject-rtos/canopennode.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/canopennode;name=canopennode \
+    git://github.com/zephyrproject-rtos/civetweb.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/civetweb;name=civetweb \
+    git://github.com/zephyrproject-rtos/cmsis.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/cmsis;name=cmsis \
+    git://github.com/zephyrproject-rtos/edtt.git;protocol=https;nobranch=1;destsuffix=git/tools/edtt;name=edtt \
+    git://github.com/zephyrproject-rtos/fatfs.git;protocol=https;nobranch=1;destsuffix=git/modules/fs/fatfs;name=fatfs \
+    git://github.com/zephyrproject-rtos/hal_altera.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/altera;name=altera \
+    git://github.com/zephyrproject-rtos/hal_atmel.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/atmel;name=atmel \
+    git://github.com/zephyrproject-rtos/hal_cypress.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/cypress;name=cypress \
+    git://github.com/zephyrproject-rtos/hal_espressif.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/espressif;name=espressif \
+    git://github.com/zephyrproject-rtos/hal_infineon.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/infineon;name=infineon \
+    git://github.com/zephyrproject-rtos/hal_microchip.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/microchip;name=microchip \
     git://github.com/zephyrproject-rtos/hal_nordic.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/nordic;name=nordic \
-    git://github.com/zephyrproject-rtos/hal_stm32.git;protocol=https;branch=main;destsuffix=git/modules/hal/stm32;name=stm32 \
+    git://github.com/zephyrproject-rtos/hal_nuvoton.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/nuvoton;name=nuvoton \
+    git://github.com/zephyrproject-rtos/hal_nxp.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/nxp;name=nxp \
+    git://github.com/zephyrproject-rtos/hal_openisa.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/openisa;name=openisa \
+    git://github.com/zephyrproject-rtos/hal_quicklogic.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/quicklogic;name=quicklogic \
+    git://github.com/zephyrproject-rtos/hal_silabs.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/silabs;name=silabs \
+    git://github.com/zephyrproject-rtos/hal_st.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/st;name=st \
+    git://github.com/zephyrproject-rtos/hal_stm32.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/stm32;name=stm32 \
+    git://github.com/zephyrproject-rtos/hal_ti.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/ti;name=ti \
+    git://github.com/zephyrproject-rtos/hal_xtensa.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/xtensa;name=xtensa \
     git://github.com/zephyrproject-rtos/libmetal.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/libmetal;name=libmetal \
-    git://github.com/zephyrproject-rtos/lvgl.git;branch=zephyr;protocol=https;destsuffix=git/modules/lib/gui/lvgl;name=lvgl \
-    git://github.com/zephyrproject-rtos/mbedtls.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/mbedtls;name=mbedtls \
+    git://github.com/zephyrproject-rtos/littlefs.git;protocol=https;nobranch=1;destsuffix=git/modules/fs/littlefs;name=littlefs \
+    git://github.com/zephyrproject-rtos/loramac-node.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/loramac-node;name=loramac-node \
+    git://github.com/zephyrproject-rtos/lvgl.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/gui/lvgl;name=lvgl \
+    git://github.com/zephyrproject-rtos/mbedtls.git;protocol=https;nobranch=1;destsuffix=git/modules/crypto/mbedtls;name=mbedtls \
+    git://github.com/zephyrproject-rtos/mcuboot.git;protocol=https;nobranch=1;destsuffix=git/bootloader/mcuboot;name=mcuboot \
+    git://github.com/zephyrproject-rtos/mcumgr.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/mcumgr;name=mcumgr \
+    git://github.com/zephyrproject-rtos/mipi-sys-t.git;protocol=https;nobranch=1;destsuffix=git/modules/debug/mipi-sys-t;name=mipi-sys-t \
+    git://github.com/zephyrproject-rtos/nanopb.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/nanopb;name=nanopb \
+    git://github.com/zephyrproject-rtos/net-tools.git;protocol=https;nobranch=1;destsuffix=git/tools/net-tools;name=net-tools \
+    git://github.com/zephyrproject-rtos/nrf_hw_models.git;protocol=https;nobranch=1;destsuffix=git/modules/bsim_hw_models/nrf_hw_models;name=nrf_hw_models \
     git://github.com/zephyrproject-rtos/open-amp.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/open-amp;name=open-amp \
-    git://github.com/zephyrproject-rtos/openthread.git;protocol=https;nobranch=1;branch=zephyr;destsuffix=git/modules/lib/openthread;name=openthread \
+    git://github.com/zephyrproject-rtos/openthread.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/openthread;name=openthread \
+    git://github.com/zephyrproject-rtos/segger.git;protocol=https;nobranch=1;destsuffix=git/modules/debug/segger;name=segger \
+    git://github.com/zephyrproject-rtos/sof.git;protocol=https;nobranch=1;destsuffix=git/modules/audio/sof;name=sof \
+    git://github.com/zephyrproject-rtos/tinycbor.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/tinycbor;name=tinycbor \
     git://github.com/zephyrproject-rtos/tinycrypt.git;protocol=https;nobranch=1;destsuffix=git/modules/crypto/tinycrypt;name=tinycrypt \
+    git://github.com/zephyrproject-rtos/TraceRecorderSource.git;protocol=https;nobranch=1;destsuffix=git/modules/debug/TraceRecorder;name=TraceRecorder \
+    git://github.com/zephyrproject-rtos/trusted-firmware-m.git;protocol=https;nobranch=1;destsuffix=git/modules/tee/tfm;name=tfm \
     "
 S = "${WORKDIR}/git"
 
