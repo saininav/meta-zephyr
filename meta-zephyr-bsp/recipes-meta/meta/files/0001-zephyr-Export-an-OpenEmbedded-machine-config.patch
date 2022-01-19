@@ -1,0 +1,184 @@
+From 8f16c15ad4e791638928beaeace86feb44623569 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Eil=C3=ADs=20N=C3=AD=20Fhlannag=C3=A1in?=
+ <elizabeth.flanagan@huawei.com>
+Date: Mon, 18 Oct 2021 13:17:38 +0100
+Subject: [PATCH] zephyr: Export an OpenEmbedded machine config
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This commit abuses cmake to attempt to figure out the OE tune file
+required and automatically generates an OpenEmbedded machine definition.
+
+We're basically abusing the same mechanism zephyr uses to export
+Makefile build information. When using this, you will need to point
+to a layer with a conf/machine in it (most likely oe-core).
+
+For testing purposes, I generate the machine confs like so:
+
+rm -rf build/*;
+for x in `west boards`;
+do
+west build -d build/$x --cmake-only -b $x samples/hello_world -- \
+    -DCONFIG_OEMACHINE_EXPORTS=y \
+    -DMETA_OE_BASE:STRING="/home/pidge/poky/meta/";
+done
+
+Not upstreaming this as it's only really appropriate for our needs.
+
+Upstream-Status: Inappropriate [other]
+
+Signed-off-by: Eilís Ní Fhlannagáin <elizabeth.flanagan@huawei.com>
+---
+ CMakeLists.txt                         |   6 ++
+ Kconfig.zephyr                         |   5 ++
+ cmake/oemachine_exports/CMakeLists.txt | 107 +++++++++++++++++++++++++
+ 3 files changed, 118 insertions(+)
+ create mode 100644 cmake/oemachine_exports/CMakeLists.txt
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 242e30cd2e..b19a908f03 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1647,3 +1647,9 @@ add_subdirectory_ifdef(
+   CONFIG_MAKEFILE_EXPORTS
+   cmake/makefile_exports
+   )
++
++# Finally export all build flags from Zephyr
++add_subdirectory_ifdef(
++  CONFIG_OEMACHINE_EXPORTS
++  cmake/oemachine_exports
++  )
+diff --git a/Kconfig.zephyr b/Kconfig.zephyr
+index 42d2d163cf..16eacb4382 100644
+--- a/Kconfig.zephyr
++++ b/Kconfig.zephyr
+@@ -455,6 +455,11 @@ config MAKEFILE_EXPORTS
+ 	  Generates a file with build information that can be read by
+ 	  third party Makefile-based build systems.
+ 
++config OEMACHINE_EXPORTS
++	bool "Generate machine configs to be used by OpenEmbedded and the Yocto Project"
++	help
++	  Generates a machine configureation for OpenEmbedded and the Yocto Project.
++
+ endmenu
+ endmenu
+ 
+diff --git a/cmake/oemachine_exports/CMakeLists.txt b/cmake/oemachine_exports/CMakeLists.txt
+new file mode 100644
+index 0000000000..8326f2271f
+--- /dev/null
++++ b/cmake/oemachine_exports/CMakeLists.txt
+@@ -0,0 +1,107 @@
++# Copyright (c) 2021 Huawei Inc.
++# SPDX-License-Identifier: Apache-2.0
++
++string(REPLACE _ - OE_BOARD ${BOARD})
++
++if("${ARCH}" STREQUAL "arm")
++  if(CONFIG_CPU_CORTEX_M0)
++    set(OE_TUNE tune-cortexm0)
++  elseif(CONFIG_CPU_CORTEX_M0PLUS)
++    set(OE_TUNE tune-cortexm0plus)
++  elseif(CONFIG_CPU_CORTEX_M1)
++    set(OE_TUNE tune-cortexm1)
++  elseif(CONFIG_CPU_CORTEX_M3)
++    set(OE_TUNE tune-cortexm3)
++  elseif(CONFIG_CPU_CORTEX_M4)
++    set(OE_TUNE tune-cortexm4)
++  elseif(CONFIG_CPU_CORTEX_M7)
++    set(OE_TUNE tune-cortexm7)
++  elseif(CONFIG_CPU_CORTEX_M23)
++    set(OE_TUNE tune-cortexm23)
++  elseif(CONFIG_CPU_CORTEX_M33)
++    if    (CONFIG_ARMV8_M_DSP)
++      set(OE_TUNE tune-cortexm33)
++    else()
++      set(OE_TUNE tune-cortexm33plusnodsp)
++    endif()
++  elseif(CONFIG_CPU_CORTEX_M55)
++    if    (CONFIG_ARMV8_M_DSP)
++      set(OE_TUNE tune-cortexm55)
++    else()
++      set(OE_TUNE tune-cortexm55plusnodsp)
++    endif()
++  elseif(CONFIG_CPU_CORTEX_R4)
++    set(OE_TUNE tune-cortexr4)
++  elseif(CONFIG_CPU_CORTEX_R5)
++    set(OE_TUNE tune-cortexr5)
++  elseif(CONFIG_CPU_CORTEX_R7)
++    set(OE_TUNE tune-cortexr7)
++  else()
++    message(FATAL_ERRORO "We currently do not support outputting build configuration for machines without GCC_M_CPU" )
++  endif()
++elseif("${ARCH}" STREQUAL "arm64")
++  if(CONFIG_CPU_CORTEX_A53)
++    set(OE_TUNE tune-cortexa53)
++  elseif(CONFIG_CPU_CORTEX_A72)
++    set(OE_TUNE tune-cortexa72)
++  elseif(CONFIG_CPU_CORTEX_R82)
++    set(OE_TUNE arch-armv8a)
++  endif()
++elseif("${ARCH}" STREQUAL "arc")
++    set(OE_TUNE tune-arc)
++elseif("${ARCH}" STREQUAL "x86")
++  if(CONFIG_X86_64)
++    set(OE_TUNE tune-core2)
++    set(DEFAULT_TUNE core2-64)
++  else()
++    set(OE_TUNE tune-corei7)
++    set(DEFAULT_TUNE core2-32)
++  endif()
++elseif("${ARCH}" STREQUAL "nios2")
++    set(OE_TUNE tune-nios2)
++else()
++  message(FATAL_ERRORO "We currently do not support outputting build configuration for ${ARCH}" )
++endif()
++
++if("${ARCH}" STREQUAL "arm")
++    if (NOT DEFAULT_TUNE)
++        string(REPLACE "tune-" "" DEFAULT_TUNE ${OE_TUNE})
++    endif()
++endif()
++
++string (REPLACE ";" "\n" MACHINE_OVERRIDES "${MACHINE_OVERRIDES}")
++
++execute_process(
++    COMMAND bash "-c" "cd ${META_OE_BASE}; find . -name ${OE_TUNE}.inc"
++    OUTPUT_VARIABLE OE_REQUIRES
++    OUTPUT_STRIP_TRAILING_WHITESPACE)
++
++if(OE_REQUIRES)
++    string(REPLACE "./" "require conf/machine/" OE_REQUIRES ${OE_REQUIRES})
++else()
++    message(FATAL_ERRORO "We were unable to find a tuning for this board. # GCC_M_CPU: ${GCC_M_CPU}\n# ARCH: ${ARCH}\n# BOARD: ${BOARD}\n" )
++endif()
++
++if(DEFAULT_TUNE)
++    set(DEFAULT_TUNE_STR "DEFAULTUNE ?= \"${DEFAULT_TUNE}\"")
++endif()
++
++set(exports
++"#@TYPE: Machine
++#@NAME: ${OE_BOARD}
++#@DESCRIPTION: Machine configuration for ${OE_BOARD} ${BUILD_VERSION_STR}
++#
++# This file is autogenerated.
++
++${OE_REQUIRES}
++
++ARCH:${OE_BOARD} = \"${ARCH}\"
++
++${DEFAULT_TUNE_STR}
++"
++  )
++
++file(GENERATE
++  OUTPUT  ${CMAKE_BINARY_DIR}/${OE_BOARD}.conf
++  CONTENT "${exports}"
++)
+-- 
+2.25.1
+
