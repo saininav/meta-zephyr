@@ -1,0 +1,11 @@
+SUMMARY = "Python pylink-square"
+HOMEPAGE ="https://pypi.org/project/pylink-square"
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = "file://MANIFEST.in;md5=8aa920a7ab8eabc590a0ab6dbe1b3bf2"
+
+inherit pypi setuptools3
+
+PYPI_PACKAGE = "pylink-square"
+SRC_URI[md5sum] = "e156ee1c73516e8b2cf52347f6c663f3"
+SRC_URI[sha256sum] = "45674112acab890483ee738bb3957e18cc6063dca763fc91283f890fb72d2f59"
+BBCLASSEXTEND = "native nativesdk"
