@@ -2,7 +2,6 @@
 
 ZEPHYR_INHERIT_CLASSES += "zephyr cmake"
 inherit ${ZEPHYR_INHERIT_CLASSES}
-inherit python3native
 
 # There shouldn't be a manifest for zephyr kernels since there is no root
 # filesystem.
@@ -24,19 +23,17 @@ EXTRA_OECMAKE = "\
     -DZEPHYR_SYSROOT=${ZEPHYR_SYSROOT} \
     -DZEPHYR_TOOLCHAIN_VARIANT=yocto \
     -DEXTRA_CPPFLAGS=${CPPFLAGS} \
+    -DZEPHYR_MODULES=${ZEPHYR_MODULES} \
     "
 
-ZEPHYR_MODULES = ""
-ZEPHYR_MODULES:append:arm = "\;${S}/modules/cmsis"
-ZEPHYR_MODULES:append:nordic = "\;${S}/modules/hal/nordic"
-ZEPHYR_MODULES:append:stm32 = "\;${S}/modules/hal/stm32"
-ZEPHYR_MODULES:append:openamp = "\;${S}/modules/lib/open-amp\;${S}/modules/hal/libmetal"
+ZEPHYR_EXTRA_MODULES = ""
 
-EXTRA_OECMAKE:append = " -DZEPHYR_MODULES=${ZEPHYR_MODULES}"
+EXTRA_OECMAKE:append = "  -DZEPHYR_EXTRA_MODULES=${ZEPHYR_EXTRA_MODULES}"
 
 export ZEPHYR_BASE="${S}"
 
-DEPENDS += "gperf-native python3-pyelftools-native python3-pyyaml-native python3-pykwalify-native"
+DEPENDS += "gperf-native"
+
 CROSS_COMPILE = "${STAGING_BINDIR_TOOLCHAIN}/${TARGET_PREFIX}"
 
 DEPENDS:append:qemuall = " qemu-native qemu-helper-native"

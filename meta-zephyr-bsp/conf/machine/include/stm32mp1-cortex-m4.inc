@@ -5,7 +5,4 @@
 
 require conf/machine/include/tune-cortexm4.inc
 
-# Include OpenAMP for communication with Cortex-A7 core of the SoC
-MACHINEOVERRIDES =. "stm32:openamp:"
-
 TUNE_FEATURES = "armv7m cortexm4"

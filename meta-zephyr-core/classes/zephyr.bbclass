@@ -1,4 +1,7 @@
 inherit terminal
+inherit python3native
+
+PYTHONPATH="${STAGING_DIR_HOST}${libdir}/${PYTHON_DIR}/site-packages"
 
 OE_TERMINAL_EXPORTS += "HOST_EXTRACFLAGS HOSTLDFLAGS TERMINFO CROSS_CURSES_LIB CROSS_CURSES_INC"
 HOST_EXTRACFLAGS = "${BUILD_CFLAGS} ${BUILD_LDFLAGS}"
@@ -20,6 +23,45 @@ python () {
     board = board.replace('-', '_')
     d.setVar('BOARD',board)
 }
+
+do_get_zmods() {
+
+    export PYTHONPATH="${RECIPE_SYSROOT_NATIVE}/${libdir}/${PYTHON_DIR}/site-packages:${RECIPE_SYSROOT_NATIVE}/${libdir}/${PYTHON_DIR}"
+    cd ${S}
+    
+    # I really dislike how tied in this is to west, but without reimplementing their script, this seems to be the
+    # easiest way to do this
+    rm -rf .west; mkdir .west
+    cat << EOF >> ${S}/.west/config
+[manifest]
+path = .
+file = west.yml
+EOF
+
+    # Because of how we structure things, we need to either structure this more like a west workspace or just tweak
+    # the manifest in order to get access to the west extentions like build and whatnot. Tweaking the manifest is the
+    # easier path here and minimizes the amount of breakage that might occur.
+    
+    sed -i 's/path: zephyr/path: ./' west.yml
+
+    # Get all available modules and add them to ZEPHYR_MODULES
+    for i in $(west list|awk 'NR>1 {print $2}'); do
+        ZEPHYR_MODULES="${S}/$i\;${ZEPHYR_MODULES}"
+    done
+    export ZEPHYR_MODULES
+}
+
+do_get_zmods[nostamp] = "1"
+do_get_zmods[dirs] = "${B}"
+
+EXTRA_OECMAKE:append = " -DZEPHYR_MODULES=${ZEPHYR_MODULES}"
+
+addtask get_zmods after do_patch before do_configure
+do_get_zmods[depends] += "west-native:do_populate_sysroot"
+do_get_zmods[depends] += "python3-pyyaml-native:do_populate_sysroot"
+do_get_zmods[depends] += "python3-pykwalify-native:do_populate_sysroot"
+do_get_zmods[depends] += "python3-colorama-native:do_populate_sysroot"
+do_get_zmods[depends] += "python3-pyelftools-native:do_populate_sysroot"
 
 python do_menuconfig() {
     os.chdir(d.getVar('ZEPHYR_SRC_DIR', True))
