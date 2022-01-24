@@ -1,17 +1,17 @@
 #@DESCRIPTION: class file to flash boards like Arduino Nano BLE which depends on bossac for flashing
 
+DEPENDS += "bossa-native"
+
 python do_flash_usb() {
     import shutil
     import subprocess
     import serial.tools.list_ports
 
-    # Note: make sure the installed bossac is set to PATH before running flash_usb()
     # Check if bossac is avaiable for flashing
-    origbbenv = d.getVar("BB_ORIGENV", False)
-    bossac_path = shutil.which("bossac", path=origbbenv.getVar('PATH'))
+    bossac_path = shutil.which("bossac")
 
     if not bossac_path:
-       bb.fatal("ERROR: bossac not found, please install first and add to PATH")
+       bb.fatal("ERROR: bossac not found.")
 
     board = d.getVar('BOARD')
 
@@ -47,4 +47,3 @@ python do_flash_usb() {
 addtask do_flash_usb after do_deploy
 
 do_flash_usb[nostamp] = "1"
-do_flash_usb[vardepsexclude] = "BB_ORIGENV"
