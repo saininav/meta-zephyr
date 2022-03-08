@@ -2,11 +2,11 @@ SRCREV_FORMAT = "default_cmsis"
 
 # These repositories are specific to post-2.6 branches
 
-SRC_URI += "\
-    git://github.com/zephyrproject-rtos/hal_telink.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/telink;name=telink \
-    git://github.com/zephyrproject-rtos/lz4.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/lz4;name=lz4 \
-    git://github.com/zephyrproject-rtos/tflite-micro.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/tflite-micro;name=tflite-micro \
-    "
+SRC_URI += " \
+    git://github.com/zephyrproject-rtos/mcumgr.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/mcumgr;name=mcumgr \
+    git://github.com/zephyrproject-rtos/TraceRecorderSource.git;protocol=https;nobranch=1;destsuffix=git/modules/debug/TraceRecorder;name=TraceRecorder \
+    git://github.com/zephyrproject-rtos/trusted-firmware-m.git;protocol=https;nobranch=1;destsuffix=git/modules/tee/tfm;name=tfm \
+"
 
 #
 # Generated from:
@@ -62,8 +62,4 @@ SRCREV_tfm = "c74be3890c9d975976fde1b1a3b2f5742bec34c0"
 ZEPHYR_BRANCH = "v2.7-branch"
 PV = "2.7.1+git${SRCPV}"
 
-SRC_URI:append = " \
-    file://0001-cmake-add-yocto-toolchain.patch \
-    file://0001-x86-fix-efi-binary-generation-issue-in-cross-compila.patch \
-    file://dtc.patch \
-"
+SRC_URI:append = " file://dtc.patch"
