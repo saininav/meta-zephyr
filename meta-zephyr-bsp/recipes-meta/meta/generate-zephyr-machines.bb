@@ -8,7 +8,7 @@ inherit ${ZEPHYR_INHERIT_CLASSES}
 
 require recipes-kernel/zephyr-kernel/zephyr-sample.inc
 
-SRC_URI:append = "file://0001-zephyr-Export-an-OpenEmbedded-machine-config.patch"
+SRC_URI:append = " file://0001-zephyr-Export-an-OpenEmbedded-machine-config.patch"
 
 ZEPHYR_SRC_DIR = "${S}/samples/hello_world"
 
