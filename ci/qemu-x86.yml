@@ -1,0 +1,10 @@
+header:
+  version: 9
+  includes:
+    - base.yml
+
+local_conf_header:
+  failing_tests: |
+    ZEPHYRTESTS:remove = "pending"
+
+machine: qemu-x86

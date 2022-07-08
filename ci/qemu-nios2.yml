@@ -1,0 +1,10 @@
+header:
+  version: 9
+  includes:
+    - base.yml
+
+local_conf_header:
+  nonbuilding_tests: |
+    ZEPHYRTESTS:remove = "interrupt"
+
+machine: qemu-nios2

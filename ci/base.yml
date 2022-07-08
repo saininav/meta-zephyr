@@ -1,0 +1,36 @@
+header:
+  version: 11
+  includes:
+    - meta-openembedded.yml
+
+distro: zephyr
+
+defaults:
+  repos:
+    refspec: master
+
+repos:
+  meta-zephyr:
+    layers:
+      meta-zephyr-core:
+      meta-zephyr-bsp:
+
+  poky:
+    url: https://git.yoctoproject.org/git/poky
+    layers:
+      meta:
+      meta-poky:
+
+env:
+  BB_LOGCONFIG: ""
+
+local_conf_header:
+  base: |
+    BB_SERVER_TIMEOUT = "60"
+    CONF_VERSION = "2"
+    INHERIT += "rm_work"
+
+machine: unset
+
+target:
+  - zephyr-kernel-test-all
