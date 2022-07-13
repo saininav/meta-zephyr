@@ -50,4 +50,4 @@ python testdata_clean() {
         os.remove(fname)
 }
 
-addtask do_testdata_write before do_build after do_deploy
+addtask do_testdata_write before do_testimage after do_deploy
