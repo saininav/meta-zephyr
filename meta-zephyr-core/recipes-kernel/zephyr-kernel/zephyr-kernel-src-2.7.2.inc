@@ -62,4 +62,9 @@ SRCREV_tfm = "c74be3890c9d975976fde1b1a3b2f5742bec34c0"
 ZEPHYR_BRANCH = "v2.7-branch"
 PV = "2.7.2+git${SRCPV}"
 
-SRC_URI:append = " file://dtc.patch"
+SRC_URI:append = " \
+    file://dtc.patch \
+    file://0001-x86-fix-efi-binary-generation-issue-in-cross-compila.patch \
+    file://0001-2.7-cmake-add-yocto-toolchain.patch \
+    git://github.com/zephyrproject-rtos/hal_cypress.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/cypress;name=cypress \
+"

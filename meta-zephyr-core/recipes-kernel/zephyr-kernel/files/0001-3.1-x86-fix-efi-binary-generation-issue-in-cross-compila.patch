@@ -1,0 +1,80 @@
+From bad26e63d47b638fc1c0b268faf5cee9738efc35 Mon Sep 17 00:00:00 2001
+From: Naveen Saini <naveen.kumar.saini@intel.com>
+Date: Thu, 28 Jul 2022 14:15:11 +0800
+Subject: [PATCH] x86: fix efi binary generation issue in cross compilation env
+
+Set root directory for headers.
+
+Upstream-Status: Inappropriate [Cross-compilation specific]
+
+Signed-off-by: Naveen Saini <naveen.kumar.saini@intel.com>
+---
+ arch/x86/zefi/zefi.py                | 5 ++++-
+ boards/x86/ehl_crb/CMakeLists.txt    | 1 +
+ boards/x86/qemu_x86/CMakeLists.txt   | 1 +
+ boards/x86/up_squared/CMakeLists.txt | 1 +
+ 4 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/zefi/zefi.py b/arch/x86/zefi/zefi.py
+index 1e95958bff..b356198aa6 100755
+--- a/arch/x86/zefi/zefi.py
++++ b/arch/x86/zefi/zefi.py
+@@ -109,8 +109,10 @@ def build_elf(elf_file, include_dirs):
+     includes = []
+     for include_dir in include_dirs:
+         includes.extend(["-I", include_dir])
++    #  Pass --sysroot path for cross compilation
++    sysrootarg = "--sysroot=" + args.sysroot
+     cmd = ([args.compiler, "-shared", "-Wall", "-Werror", "-I."] + includes +
+-           ["-fno-stack-protector", "-fpic", "-mno-red-zone", "-fshort-wchar",
++           ["-fno-stack-protector", "-fpic", "-mno-red-zone", "-fshort-wchar", sysrootarg,
+             "-Wl,-nostdlib", "-T", ldscript, "-o", "zefi.elf", cfile])
+     verbose(" ".join(cmd))
+     subprocess.run(cmd, check = True)
+@@ -150,6 +152,7 @@ def parse_args():
+     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
+     parser.add_argument("-i", "--includes", required=True, nargs="+",
+                         help="Zephyr base include directories")
++    parser.add_argument("-s", "--sysroot", required=True, help="Cross compilation --sysroot=path")
+ 
+     return parser.parse_args()
+ 
+diff --git a/boards/x86/ehl_crb/CMakeLists.txt b/boards/x86/ehl_crb/CMakeLists.txt
+index cdf8c9e097..6ea94b54e1 100644
+--- a/boards/x86/ehl_crb/CMakeLists.txt
++++ b/boards/x86/ehl_crb/CMakeLists.txt
+@@ -7,6 +7,7 @@ set_property(GLOBAL APPEND PROPERTY extra_post_build_commands
+   -i ${ZEPHYR_BASE}/include
+      $<$<BOOL:${CONFIG_LEGACY_INCLUDE_PATH}>:${ZEPHYR_BASE}/include/zephyr>
+   -f ${PROJECT_BINARY_DIR}/${CONFIG_KERNEL_BIN_NAME}.elf
++  -s ${SYSROOT_DIR}
+   $<$<BOOL:${CMAKE_VERBOSE_MAKEFILE}>:--verbose>
+   WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+ )
+diff --git a/boards/x86/qemu_x86/CMakeLists.txt b/boards/x86/qemu_x86/CMakeLists.txt
+index 8d227f8b26..a5d6480bc3 100644
+--- a/boards/x86/qemu_x86/CMakeLists.txt
++++ b/boards/x86/qemu_x86/CMakeLists.txt
+@@ -6,6 +6,7 @@ set_property(GLOBAL APPEND PROPERTY extra_post_build_commands
+      $<$<BOOL:${CONFIG_LEGACY_INCLUDE_PATH}>:${ZEPHYR_BASE}/include/zephyr>
+   -o ${CMAKE_OBJCOPY}
+   -f ${PROJECT_BINARY_DIR}/${CONFIG_KERNEL_BIN_NAME}.elf
++  -s ${SYSROOT_DIR}
+   $<$<BOOL:${CMAKE_VERBOSE_MAKEFILE}>:--verbose>
+   WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+ )
+diff --git a/boards/x86/up_squared/CMakeLists.txt b/boards/x86/up_squared/CMakeLists.txt
+index b867282d60..43cd081b21 100644
+--- a/boards/x86/up_squared/CMakeLists.txt
++++ b/boards/x86/up_squared/CMakeLists.txt
+@@ -7,6 +7,7 @@ set_property(GLOBAL APPEND PROPERTY extra_post_build_commands
+   -i ${ZEPHYR_BASE}/include
+      $<$<BOOL:${CONFIG_LEGACY_INCLUDE_PATH}>:${ZEPHYR_BASE}/include/zephyr>
+   -f ${PROJECT_BINARY_DIR}/${CONFIG_KERNEL_BIN_NAME}.elf
++  -s ${SYSROOT_DIR}
+   $<$<BOOL:${CMAKE_VERBOSE_MAKEFILE}>:--verbose>
+   WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+ )
+-- 
+2.25.1
+
