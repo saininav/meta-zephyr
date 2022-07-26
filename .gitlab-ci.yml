@@ -35,17 +35,6 @@ stages:
     paths:
       - $CI_PROJECT_DIR/work/build/tmp/work*/**/temp/log.do_*.*
 
-# Workaround for Zephyr not currectly handling TESTIMAGE_AUTO
-.build_and_test:
-  extends: .setup
-  script:
-    - KASFILES=$(./ci/jobs-to-kas "$CI_JOB_NAME")
-    - kas shell --update --force-checkout $KASFILES -c 'cat conf/*.conf'
-    - kas build $KASFILES
-    - kas build $KASFILES -c testimage
-    - ./ci/check-warnings $KAS_WORK_DIR/build/warnings.log
-
-
 #
 # Prep stage, update repositories once
 #
@@ -92,10 +81,10 @@ stm32mp157c-dk2:
   extends: .build
 
 qemu-cortex-m3/testimage:
-  extends: .build_and_test
+  extends: .build
 
-qemu-nios2/testimage:
+qemu-nios2:
   extends: .build
 
 qemu-x86/testimage:
-  extends: .build_and_test
+  extends: .build
