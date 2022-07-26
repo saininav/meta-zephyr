@@ -29,7 +29,6 @@ local_conf_header:
     BB_SERVER_TIMEOUT = "60"
     CONF_VERSION = "2"
     INHERIT += "rm_work"
-    EXTRA_OECONF:append:pn-gcc-runtime = " ac_cv_func_fcntl=no  ac_cv_func_getexecname=no"
 
 machine: unset
 
