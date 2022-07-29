@@ -83,6 +83,9 @@ qemu-cortex-a53:
 qemu-cortex-m3/testimage:
   extends: .build
 
+qemu-cortex-r5:
+  extends: .build
+
 qemu-nios2:
   extends: .build
 
