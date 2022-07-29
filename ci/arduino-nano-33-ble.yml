@@ -1,6 +1,6 @@
 header:
   version: 9
   includes:
-    - base.yml
+    - ci/base.yml
 
 machine: arduino-nano-33-ble

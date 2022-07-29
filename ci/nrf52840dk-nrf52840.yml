@@ -1,6 +1,6 @@
 header:
   version: 9
   includes:
-    - base.yml
+    - ci/base.yml
 
 machine: nrf52840dk-nrf52840
