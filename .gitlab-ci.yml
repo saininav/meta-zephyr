@@ -77,9 +77,6 @@ intel-x86-64:
 nrf52840dk-nrf52840:
   extends: .build
 
-stm32mp157c-dk2:
-  extends: .build
-
 qemu-cortex-m3/testimage:
   extends: .build
 
@@ -87,4 +84,7 @@ qemu-nios2:
   extends: .build
 
 qemu-x86/testimage:
+  extends: .build
+
+stm32mp157c-dk2:
   extends: .build
