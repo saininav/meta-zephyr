@@ -4,3 +4,10 @@ header:
     - ci/base.yml
 
 machine: stm32mp157c-dk2
+
+target:
+  - zephyr-blinky
+  - zephyr-helloworld
+  - zephyr-kernel-test-all
+  - zephyr-philosophers
+  - zephyr-openamp-rsc-table

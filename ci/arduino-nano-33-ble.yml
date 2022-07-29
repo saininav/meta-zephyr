@@ -4,3 +4,18 @@ header:
     - ci/base.yml
 
 machine: arduino-nano-33-ble
+
+target:
+  - zephyr-blinky
+  - zephyr-coap-client
+  - zephyr-coap-server
+  - zephyr-echo-client
+  - zephyr-helloworld
+  - zephyr-http-client
+  - zephyr-kernel-test-all
+  - zephyr-mqtt-publisher
+  - zephyr-openthread-echo-client
+  - zephyr-openthread-rcp
+  - zephyr-peripheral-esp
+  - zephyr-peripheral-hr
+  - zephyr-philosophers

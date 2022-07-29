@@ -4,3 +4,17 @@ header:
     - ci/base.yml
 
 machine: nrf52840dk-nrf52840
+
+target:
+  - zephyr-blinky
+  - zephyr-coap-client
+  - zephyr-coap-server
+  - zephyr-echo-client
+  - zephyr-helloworld
+  - zephyr-http-client
+  - zephyr-kernel-test-all
+  - zephyr-lvgl
+  - zephyr-mqtt-publisher
+  - zephyr-peripheral-esp
+  - zephyr-peripheral-hr
+  - zephyr-philosophers
