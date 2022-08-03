@@ -36,3 +36,4 @@ target:
   - zephyr-helloworld
   - zephyr-kernel-test-all
   - zephyr-philosophers
+  - zephyr-synchronization
