@@ -30,7 +30,7 @@ ZEPHYR_EXTRA_MODULES = ""
 
 EXTRA_OECMAKE:append = "  -DZEPHYR_EXTRA_MODULES=${ZEPHYR_EXTRA_MODULES}"
 
-export ZEPHYR_BASE="${S}"
+export ZEPHYR_BASE="${S}/zephyr"
 
 DEPENDS += "gperf-native"
 

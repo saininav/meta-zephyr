@@ -72,6 +72,6 @@ ZEPHYR_BRANCH = "v3.1-branch"
 PV = "3.1.0+git${SRCPV}"
 
 SRC_URI += " \
-    file://0001-3.1-cmake-add-yocto-toolchain.patch \
-    file://0001-3.1-x86-fix-efi-binary-generation-issue-in-cross-compila.patch \
+    file://0001-3.1-cmake-add-yocto-toolchain.patch;patchdir=zephyr \
+    file://0001-3.1-x86-fix-efi-binary-generation-issue-in-cross-compila.patch;patchdir=zephyr \
 "

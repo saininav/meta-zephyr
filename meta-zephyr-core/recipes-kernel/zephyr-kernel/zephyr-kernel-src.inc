@@ -1,5 +1,5 @@
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
+LIC_FILES_CHKSUM = "file://zephyr/LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
 
 CVE_PRODUCT = "zephyr"
 
@@ -11,7 +11,7 @@ inherit cmake
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI = "\
-    git://github.com/zephyrproject-rtos/zephyr.git;protocol=https;branch=${ZEPHYR_BRANCH};name=default \
+    git://github.com/zephyrproject-rtos/zephyr.git;protocol=https;branch=${ZEPHYR_BRANCH};name=default;destsuffix=git/zephyr \
     git://github.com/zephyrproject-rtos/canopennode.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/canopennode;name=canopennode \
     git://github.com/zephyrproject-rtos/civetweb.git;protocol=https;nobranch=1;destsuffix=git/modules/lib/civetweb;name=civetweb \
     git://github.com/zephyrproject-rtos/cmsis.git;protocol=https;nobranch=1;destsuffix=git/modules/hal/cmsis;name=cmsis \

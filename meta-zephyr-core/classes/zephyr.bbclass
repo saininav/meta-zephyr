@@ -34,15 +34,9 @@ do_get_zmods() {
     rm -rf .west; mkdir .west
     cat << EOF >> ${S}/.west/config
 [manifest]
-path = .
+path = zephyr
 file = west.yml
 EOF
-
-    # Because of how we structure things, we need to either structure this more like a west workspace or just tweak
-    # the manifest in order to get access to the west extentions like build and whatnot. Tweaking the manifest is the
-    # easier path here and minimizes the amount of breakage that might occur.
-    
-    sed -i 's/path: zephyr/path: ./' west.yml
 
     # Get all available modules and add them to ZEPHYR_MODULES
     for i in $(west list|awk 'NR>1 {print $2}'); do
