@@ -15,7 +15,7 @@ ZEPHYR_MAKE_BIN_OUTPUT = "zephyr.bin"
 ZEPHYR_MAKE_EFI_OUTPUT = "zephyr.efi"
 
 EXTRA_OECMAKE = "\
-    -DZEPHYR_BASE=${S} \
+    -DZEPHYR_BASE=${ZEPHYR_BASE} \
     -DZEPHYR_GCC_VARIANT=yocto \
     -DBOARD=${BOARD} \
     -DARCH=${ARCH} \

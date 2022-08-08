@@ -2,7 +2,6 @@ require zephyr-kernel-src.inc
 require zephyr-kernel-common.inc
 inherit deploy
 
-ZEPHYR_BASE = "${S}"
 OECMAKE_SOURCEPATH = "${ZEPHYR_SRC_DIR}"
 
 do_install[noexec] = "1"

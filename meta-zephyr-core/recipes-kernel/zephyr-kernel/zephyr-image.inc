@@ -3,7 +3,6 @@ inherit testimage
 
 QEMU_BIN_PATH = "${STAGING_BINDIR_NATIVE}"
 
-ZEPHYR_BASE = "${S}"
 OECMAKE_SOURCEPATH = "${S}/${ZEPHYR_SRC_DIR}"
 
 addtask deploy after do_compile
