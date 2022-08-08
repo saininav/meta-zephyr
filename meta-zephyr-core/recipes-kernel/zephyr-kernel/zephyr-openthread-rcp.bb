@@ -1,6 +1,6 @@
 include zephyr-sample.inc
 
-ZEPHYR_SRC_DIR = "${S}/samples/net/openthread/coprocessor"
+ZEPHYR_SRC_DIR = "${ZEPHYR_BASE}/samples/net/openthread/coprocessor"
 
 EXTRA_OECMAKE += "-DCONF_FILE="prj.conf overlay-rcp.conf overlay-usb-nrf-br.conf" -DDTC_OVERLAY_FILE="usb.overlay" -DCONFIG_OPENTHREAD_THREAD_VERSION_1_2=y"
 

@@ -5,4 +5,4 @@ operate correctly by printing a greeting to the console from two threads."
 
 include zephyr-sample.inc
 
-ZEPHYR_SRC_DIR = "${S}/samples/synchronization"
+ZEPHYR_SRC_DIR = "${ZEPHYR_BASE}/samples/synchronization"

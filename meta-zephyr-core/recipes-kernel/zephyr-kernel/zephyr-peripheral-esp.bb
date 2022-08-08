@@ -1,3 +1,3 @@
 include zephyr-sample.inc
 
-ZEPHYR_SRC_DIR = "${S}/samples/bluetooth/peripheral_esp"
+ZEPHYR_SRC_DIR = "${ZEPHYR_BASE}/samples/bluetooth/peripheral_esp"

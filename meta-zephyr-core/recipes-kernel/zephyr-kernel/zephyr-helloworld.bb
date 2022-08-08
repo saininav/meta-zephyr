@@ -4,4 +4,4 @@ console"
 
 include zephyr-sample.inc
 
-ZEPHYR_SRC_DIR = "${S}/samples/hello_world"
+ZEPHYR_SRC_DIR = "${ZEPHYR_BASE}/samples/hello_world"
