@@ -79,6 +79,9 @@ nrf52840dk-nrf52840:
 
 qemu-cortex-a53:
   extends: .build
+  parallel:
+    matrix:
+      - TOOLCHAIN: [default, zephyr-toolchain]
 
 qemu-cortex-m0:
   extends: .build
@@ -90,7 +93,8 @@ qemu-cortex-m3:
   extends: .build
   parallel:
     matrix:
-      - TESTING: testimage
+      - TOOLCHAIN: [default, zephyr-toolchain]
+        TESTING: testimage
 
 qemu-cortex-r5:
   extends: .build
@@ -102,7 +106,8 @@ qemu-x86:
   extends: .build
   parallel:
     matrix:
-      - TESTING: testimage
+      - TOOLCHAIN: [default, zephyr-toolchain]
+        TESTING: testimage
 
 stm32mp157c-dk2:
   extends: .build

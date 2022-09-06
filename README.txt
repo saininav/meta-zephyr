@@ -14,9 +14,6 @@ This layer depends on:
     Python layer (meta-openembedded/meta-python)
         git://git.openembedded.org/meta-openembedded
 
-Modify local conf by adding:
-    DISTRO="zephyr"
-
 Add "meta-openembedded/meta-oe" to BBLAYERS
 Add "meta-openembedded/meta-python" to BBLAYERS
 Add "meta-zephyr-core" and "meta-zephyr-bsp" to BBLAYERS
@@ -25,6 +22,13 @@ Building and Running Zephyr Samples
 ===================================
 
 You can build Zephyr samples. There are several sample recipes.
+
+To use the Yocto toolchain, modify local conf by adding:
+    DISTRO="zephyr"
+
+To use the Zephyr pre-built toolchain, modify local conf by adding:
+    ZEPHYR_TOOLCHAIN_VARIANT = "zephyr"
+
 For example, to build the Zephyr "philosophers" sample:
     
     $ MACHINE=qemu-x86 bitbake zephyr-philosophers

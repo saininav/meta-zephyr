@@ -1,0 +1,11 @@
+header:
+  version: 11
+
+# The Zephyr toolchain is standalone and does not depend on TCMODE or TCLIB, so
+# validate that it is possible to build Zephyr applications alongside a
+# poky-based Linux distro
+distro: poky
+
+local_conf_header:
+  zephyr-toolchain: |
+    ZEPHYR_TOOLCHAIN_VARIANT = "zephyr"
