@@ -1,19 +1,26 @@
 #! /bin/bash
 
-# Read a GitLab CI job name on $1 and transform it to a
-# list of Kas yaml files
+# This script is expecting an input of machine name, optionally followed by a
+# colon and a list of one or more parameters separated by commas between
+# brackets.  For example, the following are acceptable:
+# qemu-x86
+# qemu-cortex-m3: [testimage]
+# qemu-cortex-a53: [zephyr-toolchain, testimage]
+#
+# Turn this list into a series of yml files separated by colons to pass to kas
 
 set -e -u
 
-# Read Job namne from $1 and split on /
-IFS=/ read -r -a PARTS<<<$1
+FILES="ci/$(echo $1 | cut -d ':' -f 1).yml"
 
-# Prefix each part with ci/
-PARTS=("${PARTS[@]/#/ci/}")
+for i in $(echo $1 | cut -s -d ':' -f 2 | sed 's/[][,]//g'); do
+	# Given that there is no yml file for default, we can simply ignore those
+	# parameters.  They are necessary to pass in so that matrix can correctly
+	# setup all of the permutations of each individual run.
+	if [[ $i == 'default' ]]; then
+		continue
+	fi
+	FILES+=":ci/$i.yml"
+done
 
-# Suffix each part with .yml
-PARTS=("${PARTS[@]/%/.yml}")
-
-# Print colon-separated
-IFS=":"
-echo "${PARTS[*]}"
+echo $FILES

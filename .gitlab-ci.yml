@@ -80,11 +80,17 @@ nrf52840dk-nrf52840:
 qemu-cortex-a53:
   extends: .build
 
-qemu-cortex-m0/testimage:
+qemu-cortex-m0:
   extends: .build
+  parallel:
+    matrix:
+      - TESTING: testimage
 
-qemu-cortex-m3/testimage:
+qemu-cortex-m3:
   extends: .build
+  parallel:
+    matrix:
+      - TESTING: testimage
 
 qemu-cortex-r5:
   extends: .build
@@ -92,8 +98,11 @@ qemu-cortex-r5:
 qemu-nios2:
   extends: .build
 
-qemu-x86/testimage:
+qemu-x86:
   extends: .build
+  parallel:
+    matrix:
+      - TESTING: testimage
 
 stm32mp157c-dk2:
   extends: .build
