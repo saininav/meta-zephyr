@@ -14,7 +14,7 @@ SRC_URI += " \
 #      echo SRCREV_$x = \"$rev\"'
 #
 
-SRCREV_default = "6dd320f791c4da49190b30f9134f776d85bc5836"
+SRCREV_default = "003de78ce0dd213a1c7b3d159b967fb19a12aa45"
 SRCREV_canopennode = "f167efe85c8c7de886f1bc47f9173cfb8a346bb5"
 SRCREV_civetweb = "094aeb41bb93e9199d24d665ee43e9e05d6d7b1c"
 SRCREV_cmsis = "b0612c97c1401feeb4160add6462c3627fe90fc7"
@@ -60,7 +60,7 @@ SRCREV_TraceRecorder = "36c577727642457b0db7274298a4b96558374832"
 SRCREV_tfm = "c74be3890c9d975976fde1b1a3b2f5742bec34c0"
 
 ZEPHYR_BRANCH = "v2.7-branch"
-PV = "2.7.2+git${SRCPV}"
+PV = "2.7.3+git${SRCPV}"
 
 SRC_URI:append = " \
     file://dtc.patch;patchdir=zephyr \
