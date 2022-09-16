@@ -125,6 +125,23 @@ you will need to run the above, copy the conf files from the deploy dir to the
 machine conf directory and then run your build. This shouldn't need to happen 
 often.
 
+Generating new Zephyr recipe versions
+=====================================
+The script meta-zephyr-core/scripts/generate-version.py is used to generate
+Yocto configuration for a Zephyr version from the West configuration in the
+Zephyr repository. It requires the west and jinja2 Python packages to be
+installed on the host. Run it as follows:
+
+    $ ./meta-zephyr-core/scripts/generate-version.py x.x.x
+
+where x.x.x is the Zephyr version.
+
+The patch files added to SRC_URI in the generated file should be validated and
+modified if required.
+
+The new version should be committed and submitted to the mailing list as
+described in "Contributing".
+
 Contributing
 ============
 
