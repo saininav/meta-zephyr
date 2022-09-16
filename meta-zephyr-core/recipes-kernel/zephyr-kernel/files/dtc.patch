@@ -1,4 +1,4 @@
-Upstream-Status: Submitted [https://github.com/zephyrproject-rtos/zephyr/pull/40364]
+Upstream-Status: Backport [https://github.com/zephyrproject-rtos/zephyr/commit/a4da64033dac55108215857659831b7d027513de]
 Signed-off-by: Ross Burton <ross.burton@arm.com>
 
 From deb6e9b29d77f0d86eb188fb3c5fc6f470277d3d Mon Sep 17 00:00:00 2001
