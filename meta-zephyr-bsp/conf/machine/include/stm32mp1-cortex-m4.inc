@@ -3,6 +3,6 @@
 
 #@DESCRIPTION: Machine configuration for Cortex-M4 core of STMicroelectronics STM32MP1 SoC.
 
-require conf/machine/include/tune-cortexm4.inc
+require conf/machine/include/arm/armv7m/tune-cortexm4.inc
 
-TUNE_FEATURES = "armv7m cortexm4"
+TUNE_FEATURES = "armv7em cortexm4"
