@@ -3,10 +3,4 @@ header:
   includes:
     - ci/base.yml
 
-local_conf_header:
-  nonbuilding_tests: |
-    ZEPHYRTESTS:remove = "common context pending poll sleep"
-  qemu_opts: |
-    QB_OPT_APPEND = "-icount shift=3,align=off,sleep=on -rtc clock=vm"
-
 machine: qemu-cortex-m3
