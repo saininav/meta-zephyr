@@ -74,6 +74,9 @@ arduino-nano-33-ble:
 intel-x86-64:
   extends: .build
 
+nrf52840-mdk-usb-dongle:
+  extends: .build
+
 nrf52840dk-nrf52840:
   extends: .build
 
