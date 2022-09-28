@@ -71,6 +71,9 @@ machine-coverage:
 arduino-nano-33-ble:
   extends: .build
 
+frdm-kw41z:
+  extends: .build
+
 intel-x86-64:
   extends: .build
 
