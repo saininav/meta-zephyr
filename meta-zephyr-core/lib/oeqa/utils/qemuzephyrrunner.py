@@ -157,6 +157,7 @@ class QemuZephyrRunner(QemuRunner):
             bb.error("Unsupported QEMU: %s" % self.machine)
             return False
 
+        self.qemuparams += " %s " %self.get('QB_GRAPHICS')
         self.qemuparams += " %s " %self.get('QB_OPT_APPEND')
         self.qemuparams += " %s " %self.get('QB_CPU')
 
