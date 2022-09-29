@@ -15,6 +15,7 @@ target:
   - zephyr-kernel-test-all
   - zephyr-lvgl
   - zephyr-mqtt-publisher
+  - zephyr-openthread-rcp
   - zephyr-peripheral-esp
   - zephyr-peripheral-hr
   - zephyr-philosophers
