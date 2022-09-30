@@ -4,19 +4,26 @@ inherit deploy
 
 OECMAKE_SOURCEPATH = "${ZEPHYR_SRC_DIR}"
 
-do_install[noexec] = "1"
+do_install() {
+    install -d ${D}/firmware
 
-do_deploy() {
-    install -D ${B}/zephyr/${ZEPHYR_MAKE_OUTPUT} ${DEPLOYDIR}/${PN}.elf
+    install -D ${B}/zephyr/${ZEPHYR_MAKE_OUTPUT} ${D}/firmware/${PN}.elf
 
     if [ -f ${B}/zephyr/${ZEPHYR_MAKE_BIN_OUTPUT} ]
     then
-      install -D ${B}/zephyr/${ZEPHYR_MAKE_BIN_OUTPUT} ${DEPLOYDIR}/${PN}.bin
+      install -D ${B}/zephyr/${ZEPHYR_MAKE_BIN_OUTPUT} ${D}/firmware/${PN}.bin
     fi
 
     if [ -f ${B}/zephyr/${ZEPHYR_MAKE_EFI_OUTPUT} ]
     then
-      install -D ${B}/zephyr/${ZEPHYR_MAKE_EFI_OUTPUT} ${DEPLOYDIR}/${PN}.efi
+      install -D ${B}/zephyr/${ZEPHYR_MAKE_EFI_OUTPUT} ${D}/firmware/${PN}.efi
     fi
 }
-addtask deploy after do_compile
+FILES:${PN} = "/firmware"
+INSANE_SKIP += "ldflags buildpaths"
+SYSROOT_DIRS += "/firmware"
+
+do_deploy() {
+    cp ${D}/firmware/${PN}.* ${DEPLOYDIR}/
+}
+addtask deploy after do_install
