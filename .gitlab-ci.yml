@@ -77,6 +77,13 @@ frdm-kw41z:
 intel-x86-64:
   extends: .build
 
+mps2-an385:
+  extends: .build
+  parallel:
+    matrix:
+      - TOOLCHAIN: [default, zephyr-toolchain]
+        TESTING: testimage
+
 nrf52840-mdk-usb-dongle:
   extends: .build
 
