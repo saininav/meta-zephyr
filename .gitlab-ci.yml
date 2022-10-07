@@ -91,6 +91,13 @@ mps2-an521:
       - TOOLCHAIN: [default, zephyr-toolchain]
         TESTING: testimage
 
+mps3-an547:
+  extends: .build
+  parallel:
+    matrix:
+      - TOOLCHAIN: [default, zephyr-toolchain]
+        TESTING: testimage
+
 nrf52840-mdk-usb-dongle:
   extends: .build
 
