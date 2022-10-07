@@ -147,3 +147,6 @@ qemu-x86:
 
 stm32mp157c-dk2:
   extends: .build
+
+v2m-musca-b1:
+  extends: .build
