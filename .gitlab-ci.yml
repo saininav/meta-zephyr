@@ -150,3 +150,6 @@ stm32mp157c-dk2:
 
 v2m-musca-b1:
   extends: .build
+
+v2m-musca-s1:
+  extends: .build
