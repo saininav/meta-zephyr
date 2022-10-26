@@ -14,8 +14,8 @@ SDK_ARCHIVE = "zephyr-sdk-${PV}_linux-${BUILD_ARCH}.tar.gz"
 SDK_NAME = "${BUILD_ARCH}"
 SRC_URI = "https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${PV}/${SDK_ARCHIVE};subdir=${S};name=${SDK_NAME}"
 
-SRC_URI[x86_64.sha256sum] = "2ff0e4d79bffe1468247a3e1958aa9183a0252225ab721cf1c37188bd4b649a2"
-SRC_URI[aarch64.sha256sum] = "cbb616a50e940388ea737788d48dcea3624a85bb3ee04d9aae105496a21ae75e"
+SRC_URI[x86_64.sha256sum] = "0a7406045102197b9edc759b242499941814a1c6df29dd9fbd479ad50eb0fba9"
+SRC_URI[aarch64.sha256sum] = "d2c5de994376a287e8bf12e5776ab8f5105eafa14826608df085142fd01b7f84"
 
 do_configure[noexec] = "1"
 do_compile[noexec] = "1"
