@@ -4,3 +4,8 @@ header:
     - ci/base.yml
 
 machine: qemu-cortex-m0
+
+target:
+  - zephyr-helloworld
+  - zephyr-kernel-test-all
+  - zephyr-synchronization
