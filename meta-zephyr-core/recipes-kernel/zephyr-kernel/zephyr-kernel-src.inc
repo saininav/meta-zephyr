@@ -13,4 +13,4 @@ S = "${WORKDIR}/git"
 
 # Default to a stable version
 PREFERRED_VERSION_zephyr-kernel ??= "3.1.0"
-include zephyr-kernel-src-${PREFERRED_VERSION_zephyr-kernel}.inc
+require recipes-kernel/zephyr-kernel/zephyr-kernel-src-${PREFERRED_VERSION_zephyr-kernel}.inc
