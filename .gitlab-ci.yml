@@ -2,6 +2,7 @@ image: ghcr.io/siemens/kas/kas:latest-release
 
 variables:
   CPU_REQUEST: ""
+  DEFAULT_TAG: ""
   # These are needed as the k8s executor doesn't respect the container
   # entrypoint by default
   FF_USE_LEGACY_KUBERNETES_EXECUTION_STRATEGY: 0
@@ -13,6 +14,8 @@ stages:
 
 # Common job fragment to get a worker ready
 .setup:
+  tags:
+    - $DEFAULT_TAG
   stage: build
   interruptible: true
   variables:
@@ -65,7 +68,8 @@ machine-coverage:
   script:
     - ./ci/check-machine-coverage
   coverage: '/Coverage: \d+/'
-
+  tags:
+    - $DEFAULT_TAG
 
 #
 # Build stage, the actual build jobs
