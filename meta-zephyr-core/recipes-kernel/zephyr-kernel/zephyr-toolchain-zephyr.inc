@@ -13,3 +13,7 @@ deltask generate_toolchain_file
 # Provide a suitable location to store the toolchain capabilites cache
 ZEPHYR_USER_CACHE_DIR = "${B}/.cache"
 EXTRA_OECMAKE:append = " -DUSER_CACHE_DIR=${ZEPHYR_USER_CACHE_DIR}"
+
+# Inhibit packaging steps that require the Yocto toolchain
+INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
+INHIBIT_PACKAGE_STRIP = "1"
