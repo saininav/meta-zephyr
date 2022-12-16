@@ -7,7 +7,7 @@ distro: zephyr
 
 defaults:
   repos:
-    refspec: master
+    refspec: langdale
 
 repos:
   meta-zephyr:
