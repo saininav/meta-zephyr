@@ -2,7 +2,7 @@
 
 SRCREV_FORMAT = "default"
 
-SRCREV_default = "2ddd73feafd3316af2c547c34d6969bea637d5c6"
+SRCREV_default = "a7d946331f4f9361d1531984524dd8f151ae20b0"
 SRCREV_canopennode = "53d3415c14d60f8f4bfca54bfbc5d5a667d7e724"
 SRCREV_chre = "0edfe2c2ec656afb910cfab8ed59a5ffd59b87c8"
 SRCREV_civetweb = "094aeb41bb93e9199d24d665ee43e9e05d6d7b1c"
@@ -109,6 +109,7 @@ SRC_URI_ZSCILIB ?= "git://github.com/zephyrproject-rtos/zscilib;protocol=https"
 SRC_URI_PATCHES ?= "\
     file://0001-3.1-cmake-add-yocto-toolchain.patch;patchdir=zephyr \
     file://0001-3.1-x86-fix-efi-binary-generation-issue-in-cross-compila.patch;patchdir=zephyr \
+    file://0001-3.1-Bluetooth-host-Fix-SMP-local-keys-check-when-startin.patch;patchdir=zephyr \
 "
 
 SRC_URI = "\
