@@ -9,7 +9,7 @@ SRCREV_{{ project.name }} = "{{ project.revision }}"
 {% endfor %}
 SRC_URI_ZEPHYR ?= "git://github.com/zephyrproject-rtos/zephyr.git;protocol=https"
 {%- for project in projects %}
-SRC_URI_{{ project.name | bitbake_var }} ?= "{{ project.url | git_url_to_bitbake }}"
+SRC_URI_ZEPHYR_{{ project.name | bitbake_var }} ?= "{{ project.url | git_url_to_bitbake }}"
 {%- endfor %}
 
 SRC_URI_PATCHES ?= "\
@@ -20,7 +20,7 @@ SRC_URI_PATCHES ?= "\
 SRC_URI = "\
     ${SRC_URI_ZEPHYR};branch=${ZEPHYR_BRANCH};name=default;destsuffix=git/zephyr \
 {%- for project in projects %}
-    ${SRC_URI_{{ project.name | bitbake_var }}};name={{ project.name }};nobranch=1;destsuffix=git/{{ project.path }} \
+    ${SRC_URI_ZEPHYR_{{ project.name | bitbake_var }}};name={{ project.name }};nobranch=1;destsuffix=git/{{ project.path }} \
 {%- endfor %}
     ${SRC_URI_PATCHES} \
 "
