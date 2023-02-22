@@ -115,8 +115,8 @@ SRC_URI_ZEPHYR_ZSCILIB ?= "git://github.com/zephyrproject-rtos/zscilib;protocol=
 SRC_URI_ZEPHYR_THRIFT ?= "git://github.com/zephyrproject-rtos/thrift;protocol=https"
 
 SRC_URI_PATCHES ?= "\
-    file://0001-3.1-cmake-add-yocto-toolchain.patch;patchdir=zephyr \
-    file://0001-3.1-x86-fix-efi-binary-generation-issue-in-cross-compila.patch;patchdir=zephyr \
+    file://0001-3.3-cmake-add-yocto-toolchain.patch;patchdir=zephyr \
+    file://0001-3.3-x86-fix-efi-binary-generation-issue-in-cross-compila.patch;patchdir=zephyr \
 "
 
 SRC_URI = "\
