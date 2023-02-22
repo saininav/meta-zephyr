@@ -7,7 +7,7 @@ inherit ${ZEPHYR_INHERIT_CLASSES}
 # filesystem.
 IMAGE_NO_MANIFEST = "1"
 
-ZEPHYR_TOOLCHAIN_VARIANT ?= "yocto"
+ZEPHYR_TOOLCHAIN_VARIANT ?= "cross-compile"
 require zephyr-toolchain-${ZEPHYR_TOOLCHAIN_VARIANT}.inc
 
 ZEPHYR_MAKE_OUTPUT = "zephyr.elf"
