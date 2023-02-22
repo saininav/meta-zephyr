@@ -13,7 +13,6 @@ SRC_URI_ZEPHYR_{{ project.name | bitbake_var }} ?= "{{ project.url | git_url_to_
 {%- endfor %}
 
 SRC_URI_PATCHES ?= "\
-    file://0001-{{ short_version }}-cmake-add-yocto-toolchain.patch;patchdir=zephyr \
     file://0001-{{ short_version }}-x86-fix-efi-binary-generation-issue-in-cross-compila.patch;patchdir=zephyr \
 "
 
