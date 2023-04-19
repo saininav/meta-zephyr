@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-import json
 import pathlib
 import re
+import subprocess
 import sys
 import urllib.parse
 import urllib.request
@@ -16,19 +16,6 @@ version = sys.argv[1]
 if not re.match(r'\d+.\d+.\d+', version):
     raise ValueError("Please provide a valid Zephyr version")
 
-# Convert the version (x.y.z) into the Git commit SHA using the Github API
-# This is a two-step process - first obtain the tag SHA
-ref_url = f'https://api.github.com/repos/zephyrproject-rtos/zephyr/git/refs/tags/v{version}'
-with urllib.request.urlopen(ref_url) as f:
-    ref_data = json.load(f)
-    ref_sha = ref_data['object']['sha']
-
-# Secondly, obtain the commit SHA of the tag SHA
-tag_url = f'https://api.github.com/repos/zephyrproject-rtos/zephyr/git/tags/{ref_sha}'
-with urllib.request.urlopen(tag_url) as f:
-    tag_data = json.load(f)
-    tag_sha = tag_data['object']['sha']
-
 # Obtain the West manifest and decode using west as a library
 manifest_url = f'https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/v{version}/west.yml'
 with urllib.request.urlopen(manifest_url) as f:
@@ -39,7 +26,25 @@ with urllib.request.urlopen(manifest_url) as f:
 
 # projects contains a 'manifest' project for 'self' which we don't want to use
 projects = list(filter(lambda project: project.name != 'manifest', projects))
-template_params = dict(version=version, tag_sha=tag_sha, projects=projects)
+template_params = dict(version=version,
+                       zephyr_url='https://github.com/zephyrproject-rtos/zephyr.git',
+                       projects=projects)
+
+# Convert a revision specifier into the Git commit SHA
+def resolve_revision(revision, repo_url):
+    # If revision is a Git SHA, return it
+    if re.match(r'[a-f0-9]{40}', revision):
+        return revision
+
+    # Otherwise, resolve using git ls-remote
+    try:
+        # Prefer a deferenced tag (if annotated)
+        output = subprocess.check_output(['git', 'ls-remote', '--exit-code', repo_url, f'{revision}^{{}}'])
+        return output.split()[0].decode()
+    except subprocess.CalledProcessError:
+        # Fall back to tag name (if lightweight)
+        output = subprocess.check_output(['git', 'ls-remote', '--exit-code', repo_url, revision])
+        return output.split()[0].decode()
 
 def git_url_to_bitbake(url):
     """
@@ -62,6 +67,7 @@ template_dir = pathlib.Path(__file__).parent
 env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir))
 env.filters['git_url_to_bitbake'] = git_url_to_bitbake
 env.filters['bitbake_var'] = bitbake_var
+env.filters['resolve_revision'] = resolve_revision
 template = env.get_template('zephyr-kernel-src.inc.jinja')
 
 # Output directly to the zephyr-kernel directory

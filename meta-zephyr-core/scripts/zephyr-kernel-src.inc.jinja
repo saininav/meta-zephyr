@@ -3,11 +3,11 @@
 
 SRCREV_FORMAT = "default"
 
-SRCREV_default = "{{ tag_sha }}"
+SRCREV_default = "{{ ('v' ~ version) | resolve_revision(zephyr_url) }}"
 {% for project in projects -%}
 SRCREV_{{ project.name }} = "{{ project.revision }}"
 {% endfor %}
-SRC_URI_ZEPHYR ?= "git://github.com/zephyrproject-rtos/zephyr.git;protocol=https"
+SRC_URI_ZEPHYR ?= "{{ zephyr_url | git_url_to_bitbake }}"
 {%- for project in projects %}
 SRC_URI_ZEPHYR_{{ project.name | bitbake_var }} ?= "{{ project.url | git_url_to_bitbake }}"
 {%- endfor %}
