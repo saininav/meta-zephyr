@@ -54,7 +54,7 @@ SRCREV_trusted-firmware-a = "28f5e137837f1c1a7a7b2af2dd8bb778c0a27532"
 SRCREV_tf-m-tests = "0f80a65193ddbbe3f0ac38b33b07b26138c11fa7"
 SRCREV_psa-arch-tests = "24ed42e34e03ebbc945a7204819c1471cce2bda8"
 SRCREV_uoscore-uedhoc = "e8920192b66db4f909eb9cd3f155d5245c1ae825"
-SRCREV_zcbor = "0.6.0"
+SRCREV_zcbor = "0556edac504d1f34699aa8a22fcd507c14756c9e"
 SRCREV_zscilib = "0035be5e6a45e4ab89755b176d305d7a877fc79c"
 SRCREV_thrift = "10023645a0e6cb7ce23fcd7fd3dbac9f18df6234"
 
