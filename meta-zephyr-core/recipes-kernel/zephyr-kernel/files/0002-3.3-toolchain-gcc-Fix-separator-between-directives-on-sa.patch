@@ -1,0 +1,44 @@
+From e709258cd766a7b4a3b02e6910f980d501ef1493 Mon Sep 17 00:00:00 2001
+From: Peter Hoyes <Peter.Hoyes@arm.com>
+Date: Sun, 26 Feb 2023 21:18:04 +0000
+Subject: [PATCH] toolchain: gcc: Fix separator between directives on same
+ line
+
+The Arm assembler in binutils 2.40 contains a change [1] which affects
+how multiple directives on the same line are parsed.
+
+Previously, the following combination of directives parsed successfully:
+
+    .code 32 .balign 4
+
+With binutils 2.40, the following error is now seen:
+
+    Error: junk at end of line, first unrecognised character is `.'
+
+To fix, insert a semicolon after '.code 32', as there already is after
+'.thumb'.
+
+[1] https://sourceware.org/git/?p=binutils-gdb.git;a=commitdiff;h=a37854f9162fac592b669eda53f465fc190c9341
+
+Upstream-Status: Backport [https://github.com/zephyrproject-rtos/zephyr/commit/2f2f3edacdf13bb9bc0be1ce3b80726dce6fb1c0]
+Signed-off-by: Peter Hoyes <Peter.Hoyes@arm.com>
+---
+ include/zephyr/toolchain/gcc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/zephyr/toolchain/gcc.h b/include/zephyr/toolchain/gcc.h
+index ede21a47fe..f81cb0a309 100644
+--- a/include/zephyr/toolchain/gcc.h
++++ b/include/zephyr/toolchain/gcc.h
+@@ -312,7 +312,7 @@ do {                                                                    \
+ 
+ #else
+ 
+-#define FUNC_CODE() .code 32
++#define FUNC_CODE() .code 32;
+ #define FUNC_INSTR(a)
+ 
+ #endif /* CONFIG_ASSEMBLER_ISA_THUMB2 */
+-- 
+2.34.1
+
