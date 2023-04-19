@@ -5,7 +5,7 @@ SRCREV_FORMAT = "default"
 
 SRCREV_default = "{{ ('v' ~ version) | resolve_revision(zephyr_url) }}"
 {% for project in projects -%}
-SRCREV_{{ project.name }} = "{{ project.revision }}"
+SRCREV_{{ project.name }} = "{{ project.revision | resolve_revision(project.url) }}"
 {% endfor %}
 SRC_URI_ZEPHYR ?= "{{ zephyr_url | git_url_to_bitbake }}"
 {%- for project in projects %}
