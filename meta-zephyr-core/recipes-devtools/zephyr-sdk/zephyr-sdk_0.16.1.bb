@@ -10,12 +10,12 @@ INHIBIT_DEFAULT_DEPS = "1"
 # CMake is required by the setup script
 DEPENDS += "cmake"
 
-SDK_ARCHIVE = "zephyr-sdk-${PV}_linux-${BUILD_ARCH}.tar.gz"
+SDK_ARCHIVE = "zephyr-sdk-${PV}_linux-${BUILD_ARCH}.tar.xz"
 SDK_NAME = "${BUILD_ARCH}"
 SRC_URI = "https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${PV}/${SDK_ARCHIVE};subdir=${S};name=${SDK_NAME}"
 
-SRC_URI[x86_64.sha256sum] = "8e3572fbca9f9ba18a4436c00d680af34a85e239f7fe66c7988da85571a0d23d"
-SRC_URI[aarch64.sha256sum] = "0d36e40a81a3aa1b64d65c4c5c6cd381555a33ef1684b7ba98236fa486f176a4"
+SRC_URI[x86_64.sha256sum] = "51338d51aa4cea2516641ce0d9dc0b51b763779f00dc4564a2bc0dd713df22c7"
+SRC_URI[aarch64.sha256sum] = "062bb2b5c47ca56dd29b7f92dd7f07a5ce22ba513759d2b6960bc658531eb00c"
 
 do_configure[noexec] = "1"
 do_compile[noexec] = "1"
