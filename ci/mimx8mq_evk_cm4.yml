@@ -1,0 +1,11 @@
+header:
+  version: 9
+  includes:
+    - ci/base.yml
+
+machine: mimx8mq_evk_cm4
+
+target:
+  - zephyr-helloworld
+  - zephyr-openamp-remote
+
