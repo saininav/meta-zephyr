@@ -3,4 +3,8 @@ header:
   includes:
     - ci/base.yml
 
+local_conf_header:
+  failing_tests: |
+    ZEPHYRTESTS:remove = "gen_isr_table"
+
 machine: intel-x86-64

@@ -3,8 +3,4 @@ header:
   includes:
     - ci/base.yml
 
-local_conf_header:
-  nonbuilding_tests: |
-    ZEPHYRTESTS:remove = "common sleep poll device queue"
-
 machine: v2m-musca-s1

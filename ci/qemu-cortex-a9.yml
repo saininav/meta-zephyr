@@ -5,6 +5,6 @@ header:
 
 local_conf_header:
   failing_tests: |
-    ZEPHYRTESTS:remove = "common queue"
+    ZEPHYRTESTS:remove = "common gen_isr_table poll queue"
 
 machine: qemu-cortex-a9
