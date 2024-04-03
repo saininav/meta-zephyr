@@ -145,12 +145,12 @@ described in "Contributing".
 Contributing
 ============
 
-Patches for meta-zephyr should be sent to the yocto@lists.yoctoproject.org
-mailing list.  See https://lists.yoctoproject.org/g/yocto for subscription
+Patches for meta-zephyr should be sent to the yocto-patches@lists.yoctoproject.org
+mailing list.  See https://lists.yoctoproject.org/g/yocto-patches for subscription
 details and the list archive.  Please add [meta-zephyr] to the subject so
 the patches are identifable.
 
 Git can be configured to send mails appropriately when using git send-email:
 
-$ git config --local sendemail.to yocto@lists.yoctoproject.org
+$ git config --local sendemail.to yocto-patches@lists.yoctoproject.org
 $ git config --local format.subjectPrefix meta-zephyr][PATCH
