@@ -10,9 +10,11 @@ IMAGE_NO_MANIFEST = "1"
 ZEPHYR_TOOLCHAIN_VARIANT ?= "cross-compile"
 require zephyr-toolchain-${ZEPHYR_TOOLCHAIN_VARIANT}.inc
 
-ZEPHYR_MAKE_OUTPUT = "zephyr.elf"
-ZEPHYR_MAKE_BIN_OUTPUT = "zephyr.bin"
-ZEPHYR_MAKE_EFI_OUTPUT = "zephyr.efi"
+ZEPHYR_MAKE_OUTPUT ?= "\
+    zephyr.elf \
+    zephyr.bin \
+    zephyr.efi \
+    "
 
 EXTRA_OECMAKE = "\
     -DZEPHYR_BASE=${ZEPHYR_BASE} \
