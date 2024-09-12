@@ -10,7 +10,8 @@ do_install() {
     for output in ${ZEPHYR_MAKE_OUTPUT}; do
         if [ -f ${B}/zephyr/${output} ];
         then
-          install -D ${B}/zephyr/${output} ${D}/firmware/
+          output_img=$(echo ${output} | sed -e "s/zephyr/${PN}/g")
+          install -D ${B}/zephyr/${output} ${D}/firmware/${output_img}
         fi
     done
 }
