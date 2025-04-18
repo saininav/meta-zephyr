@@ -1,7 +1,7 @@
 # Additional definitions to use the cross-compile toolchain
 
 CROSS_COMPILE = "${STAGING_BINDIR_TOOLCHAIN}/${TARGET_PREFIX}"
-SYSROOT_DIR="${STAGING_DIR_TARGET}"
+SYSROOT_DIR = "${STAGING_DIR_TARGET}"
 
 EXTRA_OECMAKE:append = " \
     -DCROSS_COMPILE=${CROSS_COMPILE} \
